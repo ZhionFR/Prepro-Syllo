@@ -1,0 +1,3 @@
+C:/Users/tommi/OneDrive/Documents/GitHub/Prepro-Syllo/cmake-build-debug/CMakeFiles/Prepro-Syllo.dir
+C:/Users/tommi/OneDrive/Documents/GitHub/Prepro-Syllo/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tommi/OneDrive/Documents/GitHub/Prepro-Syllo/cmake-build-debug/CMakeFiles/rebuild_cache.dir
