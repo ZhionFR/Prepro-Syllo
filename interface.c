@@ -61,3 +61,62 @@ int getFig(int q1, int q2, int q3, char* propS, char* propM, char* propP) {
     scanf("%i", &fig);
     return fig;
 }
+
+void printPropoBeta(int q, int v, char* S, char* P) {
+    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", QUANTLIST[q], v, S, P);
+}
+
+void printPropo(int q, char *sentence, char *S, char *P, char *placeholderS, char *placeholderP) {
+    char* test = " {Placeholderbis} Test {Placeholder} fintest \n";
+    char res1[100];
+    char res2[100];
+    remplacerPlaceholder(sentence, S, res1, "{placeholderS}");
+    remplacerPlaceholder(res1, P, res2, "{placeholderP}");
+    printf("%s", res2);
+}
+
+void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
+                 char* propS, char* propM, char* propP) {
+    if (figNum == 1) {
+        printPropoBeta(q1, v1, propM, propP);
+        printPropoBeta(q2, v2, propS, propM);
+        printPropoBeta(q3, v3, propS, propP);
+        printf("\n");
+    }
+    if (figNum == 2) {
+        printPropoBeta(q1, v1, propP, propM);
+        printPropoBeta(q2, v2, propS, propM);
+        printPropoBeta(q3, v3, propS, propP);
+        printf("\n");
+    }
+    if (figNum == 3) {
+        printPropoBeta(q1, v1, propM, propP);
+        printPropoBeta(q2, v2, propM, propS);
+        printPropoBeta(q3, v3, propS, propP);
+        printf("\n");
+    }
+    if (figNum == 4) {
+        printPropoBeta(q1, v1, propP, propM);
+        printPropoBeta(q2, v2, propM, propS);
+        printPropoBeta(q3, v3, propS, propP);
+        printf("\n");
+    }
+}
+
+
+void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder) {
+    char *pos = strstr(phrase, placeholder);
+    int phlen = strlen(placeholder);
+
+    if (pos != NULL) {
+        strncpy(resultat, phrase, pos - phrase);
+        resultat[pos - phrase] = '\0';
+
+        strcat(resultat, name);
+
+        strcat(resultat, pos + phlen);
+    } else {
+        strcpy(resultat, phrase);
+    }
+}
+

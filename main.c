@@ -6,6 +6,8 @@
 
 int main() {
 
+    // TODO : Definition des listes depuis save.c
+
     printf("Bienvenue au pays des merveilles ( surtout des syllogismes )\n"
            "Vous pouvez a chaque choix taper 0 pour l'annuler (sauf pour les noms pour l'instant)\n"
            "Credits : BABIN Celestin, DZIGUA Saba, MALHOUD Alexandre, MICHEL Thomas\n");
@@ -47,14 +49,23 @@ int main() {
     if (isDeadStr(propP)) exit(0);
 
     // Declaration et defintion de la figure
-    int fig;
-    fig = getFig(q1, q2, q3, propS, propM, propP);
-    if (isDead(fig)) exit(0);
+    printf("Choissisez votre figure : \n");
+    printf("Figure 1 : \n");
+    printfigureBeta(1, q1, q2, q3, v1, v2, v3, propS, propM, propP);
+    printf("Figure 2 : \n");
+    printfigureBeta(2, q1, q2, q3, v1, v2, v3, propS, propM, propP);
+    printf("Figure 3 : \n");
+    printfigureBeta(3, q1, q2, q3, v1, v2, v3, propS, propM, propP);
+    printf("Figure 4 : \n");
+    printfigureBeta(4, q1, q2, q3, v1, v2, v3, propS, propM, propP);
+    int fig = 0;
+    scanf("%i", &fig);
+
 
     // Verifications
 	printf("Q1 : %c V%i ; ", QUANTLIST[q1], v1);
-    //printf("Q2 : %c V%i ; ", QUANTLIST[q2], v2);
-    //printf("Q3 : %c V%i", QUANTLIST[q3], v3);
+    printf("Q2 : %c V%i ; ", QUANTLIST[q2], v2);
+    printf("Q3 : %c V%i", QUANTLIST[q3], v3);
     printf("\n");
 
     printf("S : %15s ; ", propS);
@@ -62,9 +73,7 @@ int main() {
     printf("P : %15s", propP);
     printf("\n");
 
-    printf("Figure choisie : %2i, %s", fig, FIGLIST[fig]);
 
     return 0;
-
 }
 
