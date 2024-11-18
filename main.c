@@ -2,37 +2,25 @@
 #include "stdlib.h"
 
 #include "interface.h"
-
+#include "save.h"
+#include "traitement.h"
 
 int main() {
 
     // TODO : Definition des listes depuis save.c
 
     printf("Bienvenue au pays des merveilles ( surtout des syllogismes )\n"
-           "Vous pouvez a chaque choix taper 0 pour l'annuler (sauf pour les noms pour l'instant)\n"
+           "Vous pouvez a chaque choix taper 0 pour quitter le programme\n"
            "Credits : BABIN Celestin, DZIGUA Saba, MALHOUD Alexandre, MICHEL Thomas\n");
+
+    // get method TODO
+    int method = 1;
+
     // declarer 3 quantificateurs et 3 versions de chaque
     int q1, q2, q3;
     int v1 = 0, v2 = 0, v3 = 0;
     // definitions
-    while (v1 < 1){
-        q1 = getQuantif(1);
-        if (isDead(q1)) exit(0);
-        v1 = printQuantList(q1);
-        if (isDead(v1)) exit(0);
-    }
-    while (v2 < 1){
-        q2 = getQuantif(2);
-        if (isDead(q2)) exit(0);
-        v2 = printQuantList(q2);
-        if (isDead(v2)) exit(0);
-    }
-    while (v3 < 1){
-        q3 = getQuantif(3);
-        if (isDead(q3)) exit(0);
-        v3 = printQuantList(q3);
-        if (isDead(v3)) exit(0);
-    }
+
 
 
     // declarer + allouer les types et chaines des {predicats}
@@ -40,26 +28,55 @@ int main() {
     char* propM = (char*)malloc(50 * sizeof(char));
     char* propP = (char*)malloc(50 * sizeof(char));
 
-
-    getName(S, propS);
-    if (isDeadStr(propS)) exit(0);
-    getName(M, propM);
-    if (isDeadStr(propM)) exit(0);
-    getName(P, propP);
-    if (isDeadStr(propP)) exit(0);
-
-    // Declaration et defintion de la figure
-    printf("Choissisez votre figure : \n");
-    printf("Figure 1 : \n");
-    printfigureBeta(1, q1, q2, q3, v1, v2, v3, propS, propM, propP);
-    printf("Figure 2 : \n");
-    printfigureBeta(2, q1, q2, q3, v1, v2, v3, propS, propM, propP);
-    printf("Figure 3 : \n");
-    printfigureBeta(3, q1, q2, q3, v1, v2, v3, propS, propM, propP);
-    printf("Figure 4 : \n");
-    printfigureBeta(4, q1, q2, q3, v1, v2, v3, propS, propM, propP);
+    // declarer la figure
     int fig = 0;
-    scanf("%i", &fig);
+
+    // file management
+    int lenA, lenE, lenI, lenO;
+    int len[4] = {4, 2, 4, 2};
+    char *fileA[] = {"Pour tous les {S}, il existe un {P}.",
+                     "Chaque {S} doit reussir un {P}.",
+                     "Pour toute {S}, il y a {P}.",
+                     "Tous les {S} sont {P}."};
+    char *fileE[] = {"Aucun {S} n'est {P}.",
+                     "Jamais un {S} n'est {P}."};
+    char *fileI[] = {"Il existe un {S} qui est {P}.",
+                     "Parfois, aucune {S} n'est {P}.",
+                     "Certains {S} sont {P}.",
+                     "Il extiste un {S} qui a {P}."};
+    char *fileO[] = {"Certains {S} n'ont aucun {P}.",
+                     "Les {S} n'ont pas toujours {P}."};
+
+    if (method == 1){
+        q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
+        q2 = getQuantif(1, len, &v2, fileA, fileE, fileI, fileO);
+        q3 = getQuantif(1, len, &v3, fileA, fileE, fileI, fileO);
+
+
+        getName(S, propS);
+        if (isDeadStr(propS)) exit(0);
+        getName(M, propM);
+        if (isDeadStr(propM)) exit(0);
+        getName(P, propP);
+        if (isDeadStr(propP)) exit(0);
+
+        // Declaration et defintion de la figure
+        printf("Choissisez votre figure : \n");
+        printf("Figure 1 : \n");
+        printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
+                     q1, q2, q3, v1, v2, v3);
+        printf("Figure 2 : \n");
+        printFigures(2, fileA, fileE, fileI, fileO, propS, propP, propM,
+                     q1, q2, q3, v1, v2, v3);
+        printf("Figure 3 : \n");
+        printFigures(3, fileA, fileE, fileI, fileO, propS, propP, propM,
+                     q1, q2, q3, v1, v2, v3);
+        printf("Figure 4 : \n");
+        printFigures(4, fileA, fileE, fileI, fileO, propS, propP, propM,
+                     q1, q2, q3, v1, v2, v3);
+        scanf("%i", &fig);
+        if (isDead(fig)) exit(0);
+    }
 
 
     // Verifications
@@ -68,11 +85,21 @@ int main() {
     printf("Q3 : %c V%i", QUANTLIST[q3], v3);
     printf("\n");
 
+
     printf("S : %15s ; ", propS);
     printf("M : %15s ; ", propM);
     printf("P : %15s", propP);
     printf("\n");
 
+
+    // Valider (ou non) le syllogisme
+
+    int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+    // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
+
+    int res = verify(q1, q2, q3, rules);
+    if (res) printf("Le syllogisme est valide.");
+    else printf("Le syllogisme n'est pas valide.");
 
     return 0;
 }

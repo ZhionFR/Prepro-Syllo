@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(Prepro-Syllo main.c
         interface.c
-        save.c)
+        save.c
+        traitement.c
+        traitement.h)

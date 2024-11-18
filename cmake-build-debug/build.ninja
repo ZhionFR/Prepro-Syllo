@@ -67,6 +67,12 @@ build CMakeFiles/Prepro-Syllo.dir/save.c.obj: C_COMPILER__Prepro-Syllo_unscanned
   OBJECT_DIR = CMakeFiles\Prepro-Syllo.dir
   OBJECT_FILE_DIR = CMakeFiles\Prepro-Syllo.dir
 
+build CMakeFiles/Prepro-Syllo.dir/traitement.c.obj: C_COMPILER__Prepro-Syllo_unscanned_Debug C$:/Users/tommi/OneDrive/Documents/GitHub/Prepro-Syllo/traitement.c || cmake_object_order_depends_target_Prepro-Syllo
+  DEP_FILE = CMakeFiles\Prepro-Syllo.dir\traitement.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Prepro-Syllo.dir
+  OBJECT_FILE_DIR = CMakeFiles\Prepro-Syllo.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Prepro-Syllo
@@ -75,7 +81,7 @@ build CMakeFiles/Prepro-Syllo.dir/save.c.obj: C_COMPILER__Prepro-Syllo_unscanned
 #############################################
 # Link the executable Prepro-Syllo.exe
 
-build Prepro-Syllo.exe: C_EXECUTABLE_LINKER__Prepro-Syllo_Debug CMakeFiles/Prepro-Syllo.dir/main.c.obj CMakeFiles/Prepro-Syllo.dir/interface.c.obj CMakeFiles/Prepro-Syllo.dir/save.c.obj
+build Prepro-Syllo.exe: C_EXECUTABLE_LINKER__Prepro-Syllo_Debug CMakeFiles/Prepro-Syllo.dir/main.c.obj CMakeFiles/Prepro-Syllo.dir/interface.c.obj CMakeFiles/Prepro-Syllo.dir/save.c.obj CMakeFiles/Prepro-Syllo.dir/traitement.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Prepro-Syllo.dir

@@ -11,23 +11,31 @@ enum {NotAFig, Barbara, Barbari, Celarent, Celaront, Darii, Ferio, Cesare, Cesar
 extern char * FIGLIST[25];
 
 #define QUANTLIST "XAEIO"
+#define STATUS (const char*[]){"Off","On"}
 
 int isDead(int value);
 int isDeadStr(char* name);
 
-int getQuantif(int num);
-int printQuantList(int quantNum);
+int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+
+int getFiltre(int fA, int fE, int fI, int fO);
+int printQuantList(char ** words, int index, int len);
 
 int getType(char* name);
 void getName(int type, char* name);
 
 int getFig(int q1, int q2, int q3, char* propS, char* propM, char* propP);
 
+// obsoletes, used for testing
 void printPropoBeta(int q, int v, char* S, char* P);
-void printPropo(int q, char* sentence, char* S, char* P, char* placeholderS, char* placeholderP);
-
 void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
-                 char* propS, char* propM, char* propP);
+                     char* propS, char* propM, char* propP);
+
+void printPropo(char* sentence, char* S, char* P, char* placeholderS, char* placeholderP);
+char *getSentence(char ** fileA, char ** fileE, char ** fileI, char ** fileO, int q, int v);
+void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char ** fileO,
+                  char *S, char *P, char *M, int q1, int q2, int q3, int v1, int v2, int v3);
+
 
 void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder);
 
