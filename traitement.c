@@ -14,7 +14,7 @@ int verify(int q1, int q2, int q3, int rules[]){
     int Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint; // rules result
 
     Rmnt = !((!u1) && (!u2));
-    Rlh = 1; // wtf
+    Rlh = ((u1 && u3) || (u1 && !p3) || (!u1 && p3)) && (u2 && u3) || (!u2 && !u3);
     Rnn = ((!p1) && (!p2) && (!p3)) || p3;
     Rn = ((!p1) || (!p2)) && (!p3) || p3;
     Rpp = ((!u1) && (!u2) && (!u3)) || u3;

@@ -86,9 +86,9 @@ int main() {
     printf("\n");
 
 
-    printf("S : %15s ; ", propS);
-    printf("M : %15s ; ", propM);
-    printf("P : %15s", propP);
+    printf("S : %s ;\n ", propS);
+    printf("M : %s ;\n ", propM);
+    printf("P : %s", propP);
     printf("\n");
 
     // Valider (ou non) le syllogisme

@@ -267,7 +267,7 @@ void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeh
 
 int getRules(int rules[]) {
     int choice = 0;
-    printf("Liste des regles avec leur activation : (-1 pour retourner, 0 pour quitter)\n"
+    printf("Liste des regles avec leur activation : (-1 pour le resultat, 0 pour quitter)\n"
            "1. Rmnt : %3s\n"
            "2. Rlh : %3s\n"
            "3. Rnn : %3s\n"
