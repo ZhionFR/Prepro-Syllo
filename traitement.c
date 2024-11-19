@@ -58,29 +58,27 @@ int verify(int q1, int q2, int q3, int rules[]){
 
 // Transform q in two booleans p and u according to the value they have 
 void translate(int q, int *p, int *u) {
-    // Check if q is valid beforehand  
-    if (q==0) {
-        printf("error while inputing q");
-    }
-    if (q==1){
-        *p = 1;
-        *u = 1;
-    }else{
-        if (q==2){
+    switch (q) {
+        case 0 :
+            // Check if q is valid beforehand
+            printf("error while inputing q");
+            break;
+        case 1 :
+            *p = 1;
+            *u = 1;
+            break;
+        case 2 :
+            *p = 0;
+            *u = 1;
+            break;
+        case 3 :
             *p = 1;
             *u = 0;
-        }else{
-            if (q==3){
-                *p = 0;
-                *u = 1;
-            }else{
-                if (q==4){
-                    *p = 0;
-                    *u = 0;
-                }
-            }
-        }
+            break;
+        case 4 :
+            *p = 0;
+            *u = 0;
+            break;
     }
-
 }
 

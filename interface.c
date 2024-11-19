@@ -20,24 +20,24 @@ int isDeadStr(char* name) {
 int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO) {
     int stop = 0;
     int index = 1, temp;
-    int filtreA = 1, filtreE = 1, filtreI = 1, filtreO = 1;
+    int filterA = 1, filterE = 1, filterI = 1, filterO = 1;
     int choice;
     while (!stop) {
         printf("Choisir un quantificateur Q%i : \n", num);
         printf("-1 : Choix du filtre\n");
-        if (filtreA) {
+        if (filterA) {
             temp = printQuantList(fileA, index, len[0]);
             index = temp;
         }
-        if (filtreE) {
+        if (filterE) {
             temp = printQuantList(fileE, index, len[1]);
             index = temp;
         }
-        if (filtreI) {
+        if (filterI) {
             temp = printQuantList(fileI, index, len[2]);
             index = temp;
         }
-        if (filtreO) {
+        if (filterO) {
             temp = printQuantList(fileO, index, len[3]);
             index = temp;
         }
@@ -51,26 +51,26 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
         // Choice of filter
         if (choice == -1) {
             do {
-                choice = getFiltre(filtreA, filtreE, filtreI, filtreO);
+                choice = getFilter(filterA, filterE, filterI, filterO);
                 switch (choice) {
                     case 1 :
-                        filtreA = !filtreA;
+                        filterA = !filterA;
                         break;
                     case 2 :
-                        filtreE = !filtreE;
+                        filterE = !filterE;
                         break;
                     case 3 :
-                        filtreI = !filtreI;
+                        filterI = !filterI;
                         break;
                     case 4 :
-                        filtreO = !filtreO;
+                        filterO = !filterO;
                         break;
                 }
             } while (choice != -1);
             index = 1;
         }
     }
-    if (filtreA) {
+    if (filterA) {
         if (choice > len[0]){
             choice -= len[0];
         }else{
@@ -78,7 +78,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             return 1;
         }
     }
-    if (filtreE) {
+    if (filterE) {
         if (choice > len[1]){
             choice -= len[1];
         }else{
@@ -86,7 +86,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             return 2;
         }
     }
-    if (filtreI) {
+    if (filterI) {
         if (choice > len[2]){
             choice -= len[2];
         }else{
@@ -94,7 +94,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             return 3;
         }
     }
-    if (filtreO) {
+    if (filterO) {
         if (choice > len[3]){
             choice -= len[3];
         }else{
@@ -104,7 +104,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
     }
 }
 
-int getFiltre(int fA, int fE, int fI, int fO) {
+int getFilter(int fA, int fE, int fI, int fO) {
     int q = 0;
     printf("Activer/Desactiver les filtres : (-1 pour retourner a l'ecran de selection)\n"
            " 1. A : universel positif, statut : %3s\n"
@@ -185,8 +185,8 @@ void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
 void printPropo(char *sentence, char *propS, char *propP, char *placeholderS, char *placeholderP) {
     char res1[100];
     char res2[100];
-    remplacerPlaceholder(sentence, propS, res1, placeholderS);
-    remplacerPlaceholder(res1, propP, res2, placeholderP);
+    replacePlaceholder(sentence, propS, res1, placeholderS);
+    replacePlaceholder(res1, propP, res2, placeholderP);
     printf("%s", res2);
 }
 
@@ -249,19 +249,19 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
     }
 }
 
-void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder) {
+void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder) {
     char *pos = strstr(phrase, placeholder); // on trouve la position du placeholder
     int phlen = strlen(placeholder); // on determine sa longueur
 
     if (pos != NULL) { // on coupe de chaque cote du placeholder et on le met au milieu
-        strncpy(resultat, phrase, pos - phrase);
-        resultat[pos - phrase] = '\0';
+        strncpy(result, phrase, pos - phrase);
+        result[pos - phrase] = '\0';
 
-        strcat(resultat, name);
+        strcat(result, name);
 
-        strcat(resultat, pos + phlen);
+        strcat(result, pos + phlen);
     } else {
-        strcpy(resultat, phrase);
+        strcpy(result, phrase);
     }
 }
 
