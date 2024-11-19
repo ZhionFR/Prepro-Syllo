@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "stdlib.h"
 
 #include "traitement.h"
 
@@ -137,6 +138,7 @@ void printLign(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleAll)]);
 }
 
+
 void printLignDetailled(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
@@ -148,4 +150,12 @@ void printLignDetailled(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleRp)],
            BOOL[verify(q1, q2, q3, ruleRuu)],
            BOOL[verify(q1, q2, q3, ruleRaa)]);
+}
+
+
+void exchange(char **wrd1, char **wrd2) {
+    char *temp;
+    temp = *wrd1;
+    *wrd1 = *wrd2;
+    *wrd2 = temp;
 }

@@ -23,6 +23,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
     while (!stop) {
         printf("Choisir un quantificateur Q%i : \n", num);
         printf("-1 : Choix du filtre\n");
+        printf("-2 : Nouveau quantificateur\n");
         
         // For each filter, print the list of quantifiers
         if (filterA) {
@@ -49,7 +50,10 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
         if (choice > 0) {
             stop = 1;
         }
-        
+
+        // New quantifier
+        if (choice == -2) add_quantif(len, fileA, fileE, fileI, fileO);
+
         // Condition for exiting the function
         if (isDead(choice)){
             exit(1);
@@ -112,6 +116,9 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
         }
     }
 }
+
+// TODO : add quantif with restore_and_add()
+void add_quantif(int len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
 // The function to show the possible filters with their status (on/off)
 int getFilter(int fA, int fE, int fI, int fO) {
