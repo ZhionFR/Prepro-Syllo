@@ -47,8 +47,7 @@ int main() {
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"
            "2 pour saisie avancee.\n"
-           "3 pour le tableau simple.\n"
-           "4 pour le tableau détaillé\n");
+           "3 pour le tableau simple.\n");
     scanf("%i", &method);
 
     // The various methods
@@ -139,11 +138,6 @@ int main() {
             needCheck = 0;
             printTableau();
             break;
-        // The detailed Table
-        case 4:
-            needCheck = 0;
-            printTableauDetaille();
-            break;
     }
 
     if (needCheck) {
@@ -185,10 +179,10 @@ int main() {
     }
 
     // save files in case of modification
-    save(len[0], fileA, "Chaine_A");
-    save(len[1], fileE, "Chaine_E");
-    save(len[2], fileI, "Chaine_I");
-    save(len[3], fileO, "Chaine_O");
+    //save(len[0], fileA, "Chaine_A");
+    //save(len[1], fileE, "Chaine_E");
+    //save(len[2], fileI, "Chaine_I");
+    //save(len[3], fileO, "Chaine_O");
 
     return 0;
 

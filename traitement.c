@@ -23,7 +23,7 @@ int verify(int q1, int q2, int q3, int rules[]){
     Rlh = ((u1 && u3) || (u1 && !p3) || (!u1 && p3)) && (u2 && u3) || (!u2 && !u3);
     
     // Rnn : Two negative premises can't give a negative conclusion
-    Rnn = ((!p1) && (!p2) && (!p3)) || p3;
+    Rnn = ((!p1) && (!p2) && p3) || p3;
     
     // Rn : If a premise is negative, the conclusion is negative too
     Rn = ((!p1) || (!p2)) && (!p3) || p3;
@@ -43,6 +43,7 @@ int verify(int q1, int q2, int q3, int rules[]){
     // Check if a syllogism with an existential conclusion is still valid after changing to an universal conclusion ; in which case the original syllogism is uninteresting
     if (q3 == 3) Inint = verify(q1, q2, 1, rules);
     else if (q3 == 4) Inint = verify(q1, q2, 2, rules);
+    else Inint = 1;
 
     // Check which rules are on or not
     int res = (Rmt || !rules[0]) &&
@@ -55,10 +56,11 @@ int verify(int q1, int q2, int q3, int rules[]){
               (Raa || !rules[7]) &&
               (Inint || !rules[8]);
 
+    printf("%i, %i, %i, %i, %i, %i, %i, %i, %i",
+           Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint);
 
     return res;
 }
-
 // Transform q in two booleans p and u according to the value they have 
 void translate(int q, int *p, int *u) {
     switch (q) {
@@ -99,7 +101,7 @@ void printTableau() {
         }
     }
 }
-
+/*
 void printTableauDetaille() {
     printf(""
            "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn :: Rpp :: Rp :: Ruu :: Raa ::\n"
@@ -114,12 +116,24 @@ void printTableauDetaille() {
         }
     }
 }
+*/
 
 // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
 const int ruleNoIn[9] = {1, 1, 1, 1, 1, 1, 1, 1, 0};
 const int ruleNoInEx[9] = {1, 1, 1, 1, 1, 1, 0, 1, 0};
 const int ruleAll[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+
+void printLign(int fig, int q1, int q2, int q3) {
+    printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
+           fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
+           BOOL[verify(q1, q2, q3, ruleNoIn)],
+           BOOL[verify(q1, q2, q3, ruleNoInEx)],
+           BOOL[verify(q1, q2, q3, ruleAll)]);
+}
+
+/*
 
 const int ruleRmt[9] = {1, 0, 0, 0, 0, 0, 0, 0, 0};
 const int ruleRlh[9] = {0, 1, 0, 0, 0, 0, 0, 0, 0};
@@ -129,14 +143,6 @@ const int ruleRpp[9] = {0, 0, 0, 0, 1, 0, 0, 0, 0};
 const int ruleRp[9] = {0, 0, 0, 0, 0, 1, 0, 0, 0};
 const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1, 0, 0};
 const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
-
-void printLign(int fig, int q1, int q2, int q3) {
-    printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
-           fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOL[verify(q1, q2, q3, ruleNoIn)],
-           BOOL[verify(q1, q2, q3, ruleNoInEx)],
-           BOOL[verify(q1, q2, q3, ruleAll)]);
-}
 
 
 void printLignDetailled(int fig, int q1, int q2, int q3) {
@@ -151,7 +157,7 @@ void printLignDetailled(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleRuu)],
            BOOL[verify(q1, q2, q3, ruleRaa)]);
 }
-
+*/
 
 void exchange(char **wrd1, char **wrd2) {
     char *temp;

@@ -51,8 +51,8 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             stop = 1;
         }
 
-        // New quantifier
-        if (choice == -2) add_quantif(len, fileA, fileE, fileI, fileO);
+        // New quantifier TODO
+        //if (choice == -2) add_quantif(len, fileA, fileE, fileI, fileO);
 
         // Condition for exiting the function
         if (isDead(choice)){
