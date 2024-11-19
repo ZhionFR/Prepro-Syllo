@@ -15,6 +15,7 @@ int main() {
 
     // get method TODO
     int method = 1;
+    int needCheck = 1;
 
     // declarer 3 quantificateurs et 3 versions de chaque
     int q1, q2, q3;
@@ -47,7 +48,10 @@ int main() {
     char *fileO[] = {"Certains {S} n'ont aucun {P}.",
                      "Les {S} n'ont pas toujours {P}."};
 
-    printf("Quelle methode choissez vous ?\n 1 pour saisie simple.\n 2 pour saisie avancee.\n");
+    printf("Quelle methode choissez vous ?\n"
+           "1 pour saisie simple.\n"
+           "2 pour saisie avancee.\n"
+           "3 pour le tableau.\n");
     scanf("%i", &method);
 
     switch (method) {
@@ -83,37 +87,46 @@ int main() {
 
         case 2:
             break;
+
+        case 3:
+            needCheck = 0;
+            printTableau();
+            break;
     }
 
-/*
-    // Verifications
-	printf("Q1 : %c V%i ; ", QUANTLIST[q1], v1);
-    printf("Q2 : %c V%i ; ", QUANTLIST[q2], v2);
-    printf("Q3 : %c V%i", QUANTLIST[q3], v3);
-    printf("\n");
+    if (needCheck) {
+
+    /*
+        // Verifications
+        printf("Q1 : %c V%i ; ", QUANTLIST[q1], v1);
+        printf("Q2 : %c V%i ; ", QUANTLIST[q2], v2);
+        printf("Q3 : %c V%i", QUANTLIST[q3], v3);
+        printf("\n");
 
 
-    printf("S : %s ;\n ", propS);
-    printf("M : %s ;\n ", propM);
-    printf("P : %s", propP);
-    printf("\n");
-*/
+        printf("S : %s ;\n ", propS);
+        printf("M : %s ;\n ", propM);
+        printf("P : %s", propP);
+        printf("\n");
+    */
 
-    // Valider (ou non) le syllogisme
+        // Valider (ou non) le syllogisme
 
-    int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
-    // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
+        int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+        // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
-    int loop = 1;
-    while(loop) {
-        askRules(rules);
-        int res = verify(q1, q2, q3, rules);
-        if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
-        else printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
-        printf("Continuer ? (1 pour oui, 0 pour finir)\n");
-        scanf("%i", &loop);
+        int loop = 1;
+        while(loop) {
+            askRules(rules);
+            int res = verify(q1, q2, q3, rules);
+            if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
+            else printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
+            printf("Continuer ? (1 pour oui, 0 pour finir)\n");
+            scanf("%i", &loop);
+        }
     }
 
     return 0;
+
 }
 
