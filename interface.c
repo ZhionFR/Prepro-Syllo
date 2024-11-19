@@ -4,14 +4,17 @@
 
 #include "interface.h"
 
+// Check if value is 0
 int isDead(int value) {
     return value == KILL;
 }
 
+// Check if string = "0"
 int isDeadStr(char* name) {
     return (strcmp(name, "0")) == KILL;
 }
 
+// Return the number for the quantifier between 1 and 4
 int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO) {
     int stop = 0;
     int index = 1, temp;
@@ -20,6 +23,8 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
     while (!stop) {
         printf("Choisir un quantificateur Q%i : \n", num);
         printf("-1 : Choix du filtre\n");
+        
+        // For each filter, print the list of quantifiers
         if (filterA) {
             temp = printQuantList(fileA, index, len[0]);
             index = temp;
@@ -36,13 +41,20 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             temp = printQuantList(fileO, index, len[3]);
             index = temp;
         }
+                    
+        // Collect the number for the choice of the quantifier
         scanf("%i", &choice);
+        
+        // If there's a choice, the function will stop after this
         if (choice > 0) {
             stop = 1;
         }
+        
+        // Condition for exiting the function
         if (isDead(choice)){
             exit(1);
         }
+        
         // Choice of filter
         if (choice == -1) {
             do {
@@ -65,6 +77,8 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             index = 1;
         }
     }
+    
+    
     if (filterA) {
         if (choice > len[0]){
             choice -= len[0];
@@ -99,6 +113,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
     }
 }
 
+// The function to show the possible filters with their status (on/off)
 int getFilter(int fA, int fE, int fI, int fO) {
     int q = 0;
     printf("Activer/Desactiver les filtres : (-1 pour retourner a l'ecran de selection)\n"
@@ -121,7 +136,7 @@ int printQuantList(char ** words, int index, int len) {
     return index;
 }
 
-//Unused for now, may need to be deleted
+// Unused for now, may need to be deleted
 int getType(char* name) {
     int t;
     printf("Quel est le type de votre proposition %s ?\n", name);
@@ -129,6 +144,7 @@ int getType(char* name) {
     return t;
 }
 
+// Get either S, P or M value
 void getName(int type, char* name) {
     if (type == S) printf("Quel est le sujet de la conclusion ?");
     if (type == P) printf("Quel est le predicat de la conclusion ?");
@@ -140,8 +156,12 @@ void getName(int type, char* name) {
     scanf("%s", name);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcc9315c292921d698142eeeef3a407d272da2c0
 void printPropoBeta(int q, int v, char* S, char* P) {
-    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", QUANTLIST[q], v, S, P);
+    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", FIGLIST[q], v, S, P);
 }
 
 void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
