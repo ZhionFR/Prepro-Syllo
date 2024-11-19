@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "string.h"
 
 #include "interface.h"
 #include "save.h"
@@ -36,12 +37,16 @@ int main() {
     char **fileA, **fileE, **fileI, **fileO;
 
     // load files
-    int len[4] = {4, 2, 4, 2};
+    int len[4];
     int ptr = 0;
     restore(&ptr, &fileA, "Chaines_A");
+    len[0] = ptr;
     restore(&ptr, &fileE, "Chaines_E");
+    len[1] = ptr;
     restore(&ptr, &fileI, "Chaines_I");
+    len[2] = ptr;
     restore(&ptr, &fileO, "Chaines_O");
+    len[3] = ptr;
 
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"
@@ -83,6 +88,64 @@ int main() {
             break;
 
         case 2:
+            q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
+            getName(S1, propM);
+            if (isDeadStr(propM)) exit(0);
+            getName(P1, propP);
+            if (isDeadStr(propP)) exit(0);
+
+            q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
+            printf("Est-ce le sujet de la deuxieme premice est :\n"
+                   "1. %s\n 2. %s\n autre : ecrire votre sujet directement.\n",
+                   propM, propP);
+            scanf("%s", propS);
+            if (isDeadStr(propS)) exit(0);
+            if (strcmp(propS, "1")) {
+                q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
+                getName(S, propS);
+                fig = 3;
+            } else if (strcmp(propS, "2")) {
+                q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
+                propS = propP;
+                propP = propM;
+                propM = propS;
+                fig = 4;
+                getName(S, propS);
+            } else {
+                getName(S2, propS);
+                printf("Quel est le predicat de la deuxieme premice :\n"
+                       "1. %s\n2. %s\n", propM, propP);
+                int choice;
+                scanf("%i", &choice);
+                switch (choice) {
+                    case 0:
+                        exit(0);
+                    case 1 :
+                        fig = 2;
+                        break;
+                    case 2 :
+                        fig = 1;
+                        break;
+                }
+                q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
+            }
+
+            // Declaration et defintion de la figure
+            printf("Choissisez votre figure : \n");
+            printf("Figure 1 : \n");
+            printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
+                         q1, q2, q3, v1, v2, v3);
+            printf("Figure 2 : \n");
+            printFigures(2, fileA, fileE, fileI, fileO, propS, propP, propM,
+                         q1, q2, q3, v1, v2, v3);
+            printf("Figure 3 : \n");
+            printFigures(3, fileA, fileE, fileI, fileO, propS, propP, propM,
+                         q1, q2, q3, v1, v2, v3);
+            printf("Figure 4 : \n");
+            printFigures(4, fileA, fileE, fileI, fileO, propS, propP, propM,
+                         q1, q2, q3, v1, v2, v3);
+            scanf("%i", &fig);
+            if (isDead(fig)) exit(0);
             break;
 
         case 3:

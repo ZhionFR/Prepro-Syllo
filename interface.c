@@ -149,11 +149,17 @@ void getName(int type, char* name) {
     if (type == S) printf("Quel est le sujet de la conclusion ?");
     if (type == P) printf("Quel est le predicat de la conclusion ?");
     if (type == M) printf("Quel est le moyen-terme ?");
+    if (type == S1) printf("Quel est le sujet de la premiere premice ?");
+    if (type == P1) printf("Quel est le predicat de la premiere premice ?");
+    if (type == S2) printf("Quel est le sujet de la deuxieme premice ?");
     printf(" Votre choix : (max 50 caracteres)\n");
     scanf("%s", name);
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> bcc9315c292921d698142eeeef3a407d272da2c0
 void printPropoBeta(int q, int v, char* S, char* P) {
     printf("Q : %c ; V : %i ; S : %s ; P : %s\n", FIGLIST[q], v, S, P);
 }
