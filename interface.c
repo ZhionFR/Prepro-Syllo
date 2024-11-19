@@ -4,11 +4,6 @@
 
 #include "interface.h"
 
-char* FIGLIST[25] = {"NotAFig", "Barbara", "Barbari", "Celarent", "Celaront", "Darii", "Ferio", "Cesare", \
-                    "Cesaro", "Camestres", "Camestrop", "Festino", "Baroco", "Darapti", "Felapton", "Disamis", \
-                    "Datisi", "Bocardo", "Ferison", "Bamalip", "Calemes", "Calemop", "Dismatis", "Fesapo",  \
-                    "Fresison"};
-
 int isDead(int value) {
     return value == KILL;
 }
