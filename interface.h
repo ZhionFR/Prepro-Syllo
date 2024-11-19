@@ -2,13 +2,11 @@
 #define INTERFACE_H
 
 enum {A, E, I, O};
-enum {S, M, P};
+enum {S, M, P, S1, P1, S2};
 enum {KILL};
 enum {NotAFig, Barbara, Barbari, Celarent, Celaront, Darii, Ferio, Cesare, Cesaro, Camestres, Camestrop, Festino,
         Baroco, Darapti, Felapton, Disamis, Datisi, Bocardo, Ferison, Bamalip, Calemes, Calemop, Dismatis,
         Fesapo, Fresison};
-
-extern char * FIGLIST[25];
 
 #define QUANTLIST "XAEIO"
 #define STATUS (const char*[]){"Off","On"}

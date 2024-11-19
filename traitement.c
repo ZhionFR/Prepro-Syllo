@@ -110,3 +110,4 @@ void printLign(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleNoInEx)],
            BOOL[verify(q1, q2, q3, ruleAll)]);
 }
+

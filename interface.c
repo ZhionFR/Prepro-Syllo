@@ -133,16 +133,11 @@ void getName(int type, char* name) {
     if (type == S) printf("Quel est le sujet de la conclusion ?");
     if (type == P) printf("Quel est le predicat de la conclusion ?");
     if (type == M) printf("Quel est le moyen-terme ?");
+    if (type == S1) printf("Quel est le sujet de la premiere premice ?");
+    if (type == P1) printf("Quel est le predicat de la premiere premice ?");
+    if (type == S2) printf("Quel est le sujet de la deuxieme premice ?");
     printf(" Votre choix : (max 50 caracteres)\n");
     scanf("%s", name);
-}
-
-int getFig(int q1, int q2, int q3, char* propS, char* propM, char* propP) {
-    int fig;
-    printf("Quel est le type de figure concerné ? \n\n");
-    for (int i = 1; i < 24; i++) printf("%2i. Figure %10s. \n", i, FIGLIST[i]);
-    scanf("%i", &fig);
-    return fig;
 }
 
 void printPropoBeta(int q, int v, char* S, char* P) {
