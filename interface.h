@@ -16,6 +16,8 @@ int isDeadStr(char* name);
 
 int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
+void add_quantif(int len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+
 int getFilter(int fA, int fE, int fI, int fO);
 int printQuantList(char ** words, int index, int len);
 

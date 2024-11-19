@@ -177,6 +177,12 @@ int main() {
         }
     }
 
+    // save files in case of modification
+    save(len[0], fileA, "Chaine_A");
+    save(len[1], fileE, "Chaine_E");
+    save(len[2], fileI, "Chaine_I");
+    save(len[3], fileO, "Chaine_O");
+
     return 0;
 
 }
