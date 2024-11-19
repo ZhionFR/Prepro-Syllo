@@ -154,16 +154,8 @@ void getName(int type, char* name) {
 }
 
 
-int getFig(int q1, int q2, int q3, char* propS, char* propM, char* propP) {
-    int fig;
-    printf("Quel est le type de figure concerné ? \n\n");
-    for (int i = 1; i < 24; i++) printf("%2i. Figure %10s. \n", i, FIGLIST[i]);
-    scanf("%i", &fig);
-    return fig;
-}
-
 void printPropoBeta(int q, int v, char* S, char* P) {
-    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", QUANTLIST[q], v, S, P);
+    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", FIGLIST[q], v, S, P);
 }
 
 void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
