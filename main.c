@@ -51,10 +51,12 @@ int main() {
 
     switch (method) {
         case 1:
+            // Receive the three quantifiers.
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-
+            
+            // Receive the subject, the middle term, and the predicate
             getName(S, propS);
             if (isDeadStr(propS)) exit(0);
             getName(M, propM);
@@ -62,7 +64,7 @@ int main() {
             getName(P, propP);
             if (isDeadStr(propP)) exit(0);
 
-            // Declaration et defintion de la figure
+            // Declaration and definition of the figure
             printf("Choissisez votre figure : \n");
             printf("Figure 1 : \n");
             printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
