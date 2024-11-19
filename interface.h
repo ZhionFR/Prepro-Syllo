@@ -25,9 +25,6 @@ void getName(int type, char* name);
 int getFig(int q1, int q2, int q3, char* propS, char* propM, char* propP);
 
 // obsoletes, used for testing
-void printPropoBeta(int q, int v, char* S, char* P);
-void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
-                     char* propS, char* propM, char* propP);
 
 void printPropo(char* sentence, char* S, char* P, char* placeholderS, char* placeholderP);
 char *getSentence(char ** fileA, char ** fileE, char ** fileI, char ** fileO, int q, int v);

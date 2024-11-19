@@ -46,7 +46,8 @@ int main() {
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"
            "2 pour saisie avancee.\n"
-           "3 pour le tableau.\n");
+           "3 pour le tableau simple.\n"
+           "4 pour le tableau détaillé\n");
     scanf("%i", &method);
 
     // The various methods
@@ -146,10 +147,15 @@ int main() {
             scanf("%i", &fig);
             if (isDead(fig)) exit(0);
             break;
-        // The table
+        // The simple table
         case 3:
             needCheck = 0;
             printTableau();
+            break;
+        // The detailed Table
+        case 4:
+            needCheck = 0;
+            printTableauDetaille();
             break;
     }
 
@@ -174,6 +180,7 @@ int main() {
         int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
         // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
+        // Check if the syllogism is valid, and indicate the rules it broke if not
         int loop = 1;
         while(loop) {
             askRules(rules);

@@ -99,9 +99,35 @@ void printTableau() {
     }
 }
 
+void printTableauDetaille() {
+    printf(""
+           "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn :: Rpp :: Rp :: Ruu :: Raa ::\n"
+           "::------::----::----::----::-----::-----::-----::----::-----::----::-----::-----::\n");
+    for(int fig = 1; fig < 5; fig++) {
+        for (int q1 = 1; q1 < 5; q1++) {
+            for (int q2 = 1; q2 < 5; q2++) {
+                for (int q3 = 1; q3 < 5; q3++) {
+                    printLignDetailled(fig, q1, q2, q3);
+                }
+            }
+        }
+    }
+}
+
+// In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
+
 const int ruleNoIn[9] = {1, 1, 1, 1, 1, 1, 1, 1, 0};
 const int ruleNoInEx[9] = {1, 1, 1, 1, 1, 1, 0, 1, 0};
 const int ruleAll[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+const int ruleRmt[9] = {1, 0, 0, 0, 0, 0, 0, 0, 0};
+const int ruleRlh[9] = {0, 1, 0, 0, 0, 0, 0, 0, 0};
+const int ruleRnn[9] = {0, 0, 1, 0, 0, 0, 0, 0, 0};
+const int ruleRn[9] = {0, 0, 0, 1, 0, 0, 0, 0, 0};
+const int ruleRpp[9] = {0, 0, 0, 0, 1, 0, 0, 0, 0};
+const int ruleRp[9] = {0, 0, 0, 0, 0, 1, 0, 0, 0};
+const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1, 0, 0};
+const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
 
 void printLign(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
@@ -111,3 +137,15 @@ void printLign(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleAll)]);
 }
 
+void printLignDetailled(int fig, int q1, int q2, int q3) {
+    printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
+           fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
+           BOOL[verify(q1, q2, q3, ruleRmt)],
+           BOOL[verify(q1, q2, q3, ruleRlh)],
+           BOOL[verify(q1, q2, q3, ruleRnn)],
+           BOOL[verify(q1, q2, q3, ruleRn)],
+           BOOL[verify(q1, q2, q3, ruleRpp)],
+           BOOL[verify(q1, q2, q3, ruleRp)],
+           BOOL[verify(q1, q2, q3, ruleRuu)],
+           BOOL[verify(q1, q2, q3, ruleRaa)]);
+}
