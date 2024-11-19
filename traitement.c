@@ -12,7 +12,7 @@ int verify(int q1, int q2, int q3, int rules[]){
     translate(q2, &p2, &u2);
     translate(q3, &p3, &u3);
 
-    int Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint; // Rules result
+    int Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint; // Rules result
 
 
     // Rmt (Règle du moyen-terme) : The quantity of M need to be universal in one of the two premises at least.
@@ -44,15 +44,15 @@ int verify(int q1, int q2, int q3, int rules[]){
     else if (q3 == 4) Inint = verify(q1, q2, 2, rules);
 
     // Check which rules are on or not
-    int res = (Rmnt || !rules[0]) &&
-            (Rlh || !rules[1]) &&
-            (Rnn || !rules[2]) &&
-            (Rn || !rules[3]) &&
-            (Rpp || !rules[4]) &&
-            (Rp || !rules[5]) &&
-            (Ruu || !rules[6]) &&
-            (Raa || !rules[7]) &&
-            (Inint || !rules[8]);
+    int res = (Rmt || !rules[0]) &&
+              (Rlh || !rules[1]) &&
+              (Rnn || !rules[2]) &&
+              (Rn || !rules[3]) &&
+              (Rpp || !rules[4]) &&
+              (Rp || !rules[5]) &&
+              (Ruu || !rules[6]) &&
+              (Raa || !rules[7]) &&
+              (Inint || !rules[8]);
 
 
     return res;
