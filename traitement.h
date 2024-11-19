@@ -10,4 +10,6 @@ void translate(int q, int *p, int *u);
 void printTableau();
 void printLign(int fig, int q1, int q2, int q3);
 
+void exchange(char **wrd1, char **wrd2);
+
 #endif

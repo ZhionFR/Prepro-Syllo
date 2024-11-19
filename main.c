@@ -96,23 +96,20 @@ int main() {
             
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             printf("Est-ce le sujet de la deuxieme premice est :\n"
-                   "1. %s\n 2. %s\n autre : ecrire votre sujet directement.\n",
+                   "1. %s\n2. %s\nAutre : ecrire votre sujet directement.\n",
                    propM, propP);
             scanf("%s", propS);
             if (isDeadStr(propS)) exit(0);
-            if (strcmp(propS, "1")) {
+            if (!strcmp(propS, "1")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 getName(S, propS);
                 fig = 3;
-            } else if (strcmp(propS, "2")) {
+            } else if (!strcmp(propS, "2")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-                propS = propP;
-                propP = propM;
-                propM = propS;
+                exchange(propM, propP);
                 fig = 4;
                 getName(S, propS);
             } else {
-                getName(S2, propS);
                 printf("Quel est le predicat de la deuxieme premice :\n"
                        "1. %s\n2. %s\n", propM, propP);
                 int choice;
@@ -121,31 +118,20 @@ int main() {
                     case 0:
                         exit(0);
                     case 1 :
+                        exchange(propM, propP);
                         fig = 2;
                         break;
                     case 2 :
+                        exchange(propM, propP);
                         fig = 1;
                         break;
                 }
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
             }
 
-            // Declaration and definition of the figure
-            printf("Choissisez votre figure : \n");
-            printf("Figure 1 : \n");
-            printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
+            printf("votre syllogisme est : ");
+            printFigures(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
                          q1, q2, q3, v1, v2, v3);
-            printf("Figure 2 : \n");
-            printFigures(2, fileA, fileE, fileI, fileO, propS, propP, propM,
-                         q1, q2, q3, v1, v2, v3);
-            printf("Figure 3 : \n");
-            printFigures(3, fileA, fileE, fileI, fileO, propS, propP, propM,
-                         q1, q2, q3, v1, v2, v3);
-            printf("Figure 4 : \n");
-            printFigures(4, fileA, fileE, fileI, fileO, propS, propP, propM,
-                         q1, q2, q3, v1, v2, v3);
-            scanf("%i", &fig);
-            if (isDead(fig)) exit(0);
             break;
         // The table
         case 3:
