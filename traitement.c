@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "stdlib.h"
 
 #include "traitement.h"
 
@@ -111,3 +112,10 @@ void printLign(int fig, int q1, int q2, int q3) {
            BOOL[verify(q1, q2, q3, ruleAll)]);
 }
 
+void exchange(char* wrd1, char* wrd2) {
+    char* temp = (char*)malloc(50 * sizeof(char));
+    temp = wrd1;
+    wrd1 = wrd2;
+    wrd2 = temp;
+    free(temp);
+}

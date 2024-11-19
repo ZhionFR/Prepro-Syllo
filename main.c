@@ -8,22 +8,18 @@
 
 int main() {
 
-    // TODO : Definition des listes depuis save.c
 
     printf("Bienvenue au pays des merveilles ( surtout des syllogismes )\n"
            "Vous pouvez a chaque choix taper 0 pour quitter le programme\n"
            "Credits : BABIN Celestin, DZIGUA Saba, MALHOUD Alexandre, MICHEL Thomas\n");
 
-    // get method TODO
+    // get method
     int method = 1;
     int needCheck = 1;
 
     // declarer 3 quantificateurs et 3 versions de chaque
     int q1, q2, q3;
     int v1 = 0, v2 = 0, v3 = 0;
-    // definitions
-
-
 
     // declarer + allouer les types et chaines des {predicats}
     char* propS = (char*)malloc(50 * sizeof(char));
@@ -175,6 +171,11 @@ int main() {
 
         int loop = 1;
         while(loop) {
+
+            printf("Votre syllogisme est :\n");
+            printFigures(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
+                         q1, q2, q3, v1, v2, v3);
+
             askRules(rules);
             int res = verify(q1, q2, q3, rules);
             if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
