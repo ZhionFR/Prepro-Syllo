@@ -18,7 +18,7 @@ int isDeadStr(char* name);
 
 int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
-int getFiltre(int fA, int fE, int fI, int fO);
+int getFilter(int fA, int fE, int fI, int fO);
 int printQuantList(char ** words, int index, int len);
 
 int getType(char* name);
@@ -37,7 +37,7 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
                   char *S, char *P, char *M, int q1, int q2, int q3, int v1, int v2, int v3);
 
 
-void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder);
+void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder);
 
 int getRules(int rules[]);
 void askRules(int rules[]);
