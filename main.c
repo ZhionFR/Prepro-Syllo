@@ -13,26 +13,25 @@ int main() {
            "Vous pouvez a chaque choix taper 0 pour quitter le programme\n"
            "Credits : BABIN Celestin, DZIGUA Saba, MALHOUD Alexandre, MICHEL Thomas\n");
 
-    // get method
     int method = 1;
     int needCheck = 1;
 
-    // declarer 3 quantificateurs et 3 versions de chaque
+    // Declaration of the 3 quantifiers and their 3 versions
     int q1, q2, q3;
     int v1 = 0, v2 = 0, v3 = 0;
 
-    // declarer + allouer les types et chaines des {predicats}
+    // Declaration and allocation of the types and chains of the {predicates}
     char* propS = (char*)malloc(50 * sizeof(char));
     char* propM = (char*)malloc(50 * sizeof(char));
     char* propP = (char*)malloc(50 * sizeof(char));
 
-    // declarer la figure
+    // Declaration of the figure
     int fig = 0;
 
-    // file management
+    // File management
     char **fileA, **fileE, **fileI, **fileO;
 
-    // load files
+    // Load files
     int len[4];
     int ptr = 0;
     restore(&ptr, &fileA, "Chaines_A");
@@ -44,18 +43,23 @@ int main() {
     restore(&ptr, &fileO, "Chaines_O");
     len[3] = ptr;
 
+    // Ask for the method the user wants
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"
            "2 pour saisie avancee.\n"
            "3 pour le tableau.\n");
     scanf("%i", &method);
 
+    // The various methods
     switch (method) {
+        // The simple entry
         case 1:
+            // Receive the three quantifiers.
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-
+            
+            // Receive the subject, the middle term, and the predicate
             getName(S, propS);
             if (isDeadStr(propS)) exit(0);
             getName(M, propM);
@@ -63,7 +67,7 @@ int main() {
             getName(P, propP);
             if (isDeadStr(propP)) exit(0);
 
-            // Declaration et defintion de la figure
+            // Declaration and definition of the figure
             printf("Choissisez votre figure : \n");
             printf("Figure 1 : \n");
             printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
@@ -80,14 +84,16 @@ int main() {
             scanf("%i", &fig);
             if (isDead(fig)) exit(0);
             break;
-
+        
+        // The advanced entry
         case 2:
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
             getName(S1, propM);
             if (isDeadStr(propM)) exit(0);
             getName(P1, propP);
             if (isDeadStr(propP)) exit(0);
-
+            
+            
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             printf("Est-ce le sujet de la deuxieme premice est :\n"
                    "1. %s\n 2. %s\n autre : ecrire votre sujet directement.\n",
@@ -124,7 +130,7 @@ int main() {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
             }
 
-            // Declaration et defintion de la figure
+            // Declaration and definition of the figure
             printf("Choissisez votre figure : \n");
             printf("Figure 1 : \n");
             printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
@@ -141,7 +147,7 @@ int main() {
             scanf("%i", &fig);
             if (isDead(fig)) exit(0);
             break;
-
+        // The table
         case 3:
             needCheck = 0;
             printTableau();
@@ -164,10 +170,10 @@ int main() {
         printf("\n");
     */
 
-        // Valider (ou non) le syllogisme
-
+        // Validate (or not) the syllogism 
+        
         int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
-        // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
+        // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
         int loop = 1;
         while(loop) {
