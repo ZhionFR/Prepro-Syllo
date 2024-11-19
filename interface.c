@@ -156,42 +156,6 @@ void getName(int type, char* name) {
     scanf("%s", name);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> bcc9315c292921d698142eeeef3a407d272da2c0
-void printPropoBeta(int q, int v, char* S, char* P) {
-    printf("Q : %c ; V : %i ; S : %s ; P : %s\n", FIGLIST[q], v, S, P);
-}
-
-void printfigureBeta(int figNum, int q1, int q2, int q3, int v1, int v2, int v3,
-                     char* propS, char* propM, char* propP) {
-    if (figNum == 1) {
-        printPropoBeta(q1, v1, propM, propP);
-        printPropoBeta(q2, v2, propS, propM);
-        printPropoBeta(q3, v3, propS, propP);
-        printf("\n");
-    }
-    if (figNum == 2) {
-        printPropoBeta(q1, v1, propP, propM);
-        printPropoBeta(q2, v2, propS, propM);
-        printPropoBeta(q3, v3, propS, propP);
-        printf("\n");
-    }
-    if (figNum == 3) {
-        printPropoBeta(q1, v1, propM, propP);
-        printPropoBeta(q2, v2, propM, propS);
-        printPropoBeta(q3, v3, propS, propP);
-        printf("\n");
-    }
-    if (figNum == 4) {
-        printPropoBeta(q1, v1, propP, propM);
-        printPropoBeta(q2, v2, propM, propS);
-        printPropoBeta(q3, v3, propS, propP);
-        printf("\n");
-    }
-}
-
 void printPropo(char *sentence, char *propS, char *propP, char *placeholderS, char *placeholderP) {
     char res1[100];
     char res2[100];
