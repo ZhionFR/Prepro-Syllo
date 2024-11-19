@@ -49,8 +49,8 @@ int main() {
 
     if (method == 1){
         q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
-        q2 = getQuantif(1, len, &v2, fileA, fileE, fileI, fileO);
-        q3 = getQuantif(1, len, &v3, fileA, fileE, fileI, fileO);
+        q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
+        q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
 
 
         getName(S, propS);
@@ -91,15 +91,20 @@ int main() {
     printf("P : %15s", propP);
     printf("\n");
 
-
     // Valider (ou non) le syllogisme
 
     int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
     // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
-    int res = verify(q1, q2, q3, rules);
-    if (res) printf("Le syllogisme est valide.");
-    else printf("Le syllogisme n'est pas valide.");
+    int loop = 1;
+    while(loop) {
+        askRules(rules);
+        int res = verify(q1, q2, q3, rules);
+        if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
+        else printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
+        printf("Continuer ? (1 pour oui, 0 pour finir)\n");
+        scanf("%i", &loop);
+    }
 
     return 0;
 }

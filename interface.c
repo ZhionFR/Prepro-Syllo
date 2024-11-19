@@ -50,23 +50,24 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
         }
         // Choice of filter
         if (choice == -1) {
-            choice = getFiltre(filtreA, filtreE, filtreI, filtreO);
-            index = 0;
-            if (choice == 1) {
-                filtreA = !filtreA;
-            } else {
-                if (choice == 2) {
-                    filtreE = !filtreE;
-                } else {
-                    if (choice == 3) {
+            do {
+                choice = getFiltre(filtreA, filtreE, filtreI, filtreO);
+                switch (choice) {
+                    case 1 :
+                        filtreA = !filtreA;
+                        break;
+                    case 2 :
+                        filtreE = !filtreE;
+                        break;
+                    case 3 :
                         filtreI = !filtreI;
-                    } else {
-                        if (choice == 4) {
-                            filtreO = !filtreO;
-                        }
-                    }
+                        break;
+                    case 4 :
+                        filtreO = !filtreO;
+                        break;
                 }
-            }
+            } while (choice != -1);
+            index = 1;
         }
     }
     if (filtreA) {
@@ -105,7 +106,7 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
 
 int getFiltre(int fA, int fE, int fI, int fO) {
     int q = 0;
-    printf("Activer/Desactiver les filtres : \n"
+    printf("Activer/Desactiver les filtres : (-1 pour retourner a l'ecran de selection)\n"
            " 1. A : universel positif, statut : %3s\n"
            " 2. E : universel negatif, statut : %3s\n"
            " 3. I : existentiel positif, statut : %3s\n"
@@ -125,6 +126,7 @@ int printQuantList(char ** words, int index, int len) {
     return index;
 }
 
+//Unused for now, may need to be deleted
 int getType(char* name) {
     int t;
     printf("Quel est le type de votre proposition %s ?\n", name);
@@ -248,10 +250,10 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
 }
 
 void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder) {
-    char *pos = strstr(phrase, placeholder);
-    int phlen = strlen(placeholder);
+    char *pos = strstr(phrase, placeholder); // on trouve la position du placeholder
+    int phlen = strlen(placeholder); // on determine sa longueur
 
-    if (pos != NULL) {
+    if (pos != NULL) { // on coupe de chaque cote du placeholder et on le met au milieu
         strncpy(resultat, phrase, pos - phrase);
         resultat[pos - phrase] = '\0';
 
@@ -260,6 +262,67 @@ void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeh
         strcat(resultat, pos + phlen);
     } else {
         strcpy(resultat, phrase);
+    }
+}
+
+int getRules(int rules[]) {
+    int choice = 0;
+    printf("Liste des regles avec leur activation : (-1 pour retourner, 0 pour quitter)\n"
+           "1. Rmnt : %3s\n"
+           "2. Rlh : %3s\n"
+           "3. Rnn : %3s\n"
+           "4. Rn : %3s\n"
+           "5. Rpp : %3s\n"
+           "6. Rp : %3s\n"
+           "7. Ruu : %3s\n"
+           "8. Raa : %3s\n"
+           "9. Inint : %3s\n",
+           STATUS[rules[0]], STATUS[rules[1]], STATUS[rules[2]],
+           STATUS[rules[3]], STATUS[rules[4]], STATUS[rules[5]],
+           STATUS[rules[6]], STATUS[rules[7]], STATUS[rules[8]]);
+    scanf("%i", &choice);
+    return choice;
+}
+
+void askRules(int rules[]) {
+    int choice = 0;
+    int loop = 1;
+    while (loop) {
+        choice = getRules(rules);
+        switch (choice) {
+            case -1:
+                loop = 0;
+                break;
+            case 0:
+                exit(0);
+            case 1 :
+                rules[0] = !rules[0];
+                break;
+            case 2 :
+                rules[1] = !rules[1];
+                break;
+            case 3 :
+                rules[2] = !rules[2];
+                break;
+            case 4 :
+                rules[3] = !rules[3];
+                break;
+            case 5 :
+                rules[4] = !rules[4];
+                break;
+            case 6 :
+                rules[5] = !rules[5];
+                break;
+            case 7 :
+                rules[6] = !rules[6];
+                break;
+            case 8 :
+                rules[7] = !rules[7];
+                break;
+            case 9 :
+                rules[8] = !rules[8];
+                break;
+        }
     }
 }
 

@@ -39,4 +39,7 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
 
 void remplacerPlaceholder(char *phrase, char *name, char *resultat, char* placeholder);
 
+int getRules(int rules[]);
+void askRules(int rules[]);
+
 #endif

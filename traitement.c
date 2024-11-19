@@ -21,7 +21,10 @@ int verify(int q1, int q2, int q3, int rules[]){
     Rp = (((!u1) || (!u2)) && (!u3)) || u3;
     Ruu = (u1 && u2 && u3) || !u3;
     Raa = (p1 && p2 && p3) || !p3;
-    Inint = 1; // wtf
+
+    // Inint
+    if (q3 == 3) Inint = verify(q1, q2, 1, rules);
+    else if (q3 == 4) Inint = verify(q1, q2, 2, rules);
 
     int res = (Rmnt || !rules[0]) &&
             (Rlh || !rules[1]) &&
