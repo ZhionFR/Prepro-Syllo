@@ -33,20 +33,15 @@ int main() {
     int fig = 0;
 
     // file management
-    int lenA, lenE, lenI, lenO;
+    char **fileA, **fileE, **fileI, **fileO;
+
+    // load files
     int len[4] = {4, 2, 4, 2};
-    char *fileA[] = {"Pour tous les {S}, il existe un {P}.",
-                     "Chaque {S} doit reussir un {P}.",
-                     "Pour toute {S}, il y a {P}.",
-                     "Tous les {S} sont {P}."};
-    char *fileE[] = {"Aucun {S} n'est {P}.",
-                     "Jamais un {S} n'est {P}."};
-    char *fileI[] = {"Il existe un {S} qui est {P}.",
-                     "Parfois, aucune {S} n'est {P}.",
-                     "Certains {S} sont {P}.",
-                     "Il extiste un {S} qui a {P}."};
-    char *fileO[] = {"Certains {S} n'ont aucun {P}.",
-                     "Les {S} n'ont pas toujours {P}."};
+    int ptr = 0;
+    restore(&ptr, &fileA, "Chaines_A");
+    restore(&ptr, &fileE, "Chaines_E");
+    restore(&ptr, &fileI, "Chaines_I");
+    restore(&ptr, &fileO, "Chaines_O");
 
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"

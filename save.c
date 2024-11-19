@@ -1,71 +1,92 @@
-#include "stdlib.h"
-#include "stdio.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
-
-#include "save.h"
-
-char ** getQuantList(){
-    int len = 5; // 5 for example
-
-    char ** quantList = (char**)malloc(len * sizeof(char*));
-
-    for (int i = 0; i < len; i ++){
-        quantList[i] = (char*) malloc(50 * sizeof(char));
-        // EXAMPLE LINE : WE NEED TO PUT REAL FILE VALUES HERE
-        quantList[i] = "Quantificateur Vide";
+void save(int table_len, char *string_table[], char *file_name_to_save) {
+    // Open the file for writing.
+    int fd = open(file_name_to_save, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1) {
+        perror("Error opening file for saving");
+        return;
     }
 
-    return quantList;
+    // Write the length of the table
+    if (write(fd, &table_len, sizeof(int)) != sizeof(int)) {
+        perror("Error writing table length");
+        close(fd);
+        return;
+    }
+
+    // Write each string.
+    for (int i = 0; i < table_len; i++) {
+        int str_len = strlen(string_table[i]) + 1;
+        // Write the length of the string.
+        if (write(fd, &str_len, sizeof(int)) != sizeof(int)) {
+            perror("Error writing string length");
+            close(fd);
+            return;
+        }
+        // Write the string itself.
+        if (write(fd, string_table[i], str_len) != str_len) {
+            perror("Error writing string");
+            close(fd);
+            return;
+        }
+    }
+    close(fd);
 }
 
-// macro et assert seront prochainement add.
+void restore(int *p_table_len, char ***p_string_table, char *file_name_to_restore) {
+    // Open the file for reading
+    int fd = open(file_name_to_restore, O_RDONLY);
+    if (fd == -1) {
+        perror("Error opening file for restoring");
+        return;
+    }
 
-// Function to save an array of strings to a specified file.
-int save_string_array_in_file(char ** words, int length, char * file_name){
-    // Test if the input array is empty.
-    if (words == NULL){
-        fprintf(stderr, "Error save_string_list_in_file() : word points to null.");
-        exit(EXIT_FAILURE);
+    // Read the length of the table.
+    if (read(fd, p_table_len, sizeof(int)) != sizeof(int)) {
+        perror("Error reading table length");
+        close(fd);
+        return;
     }
-    // File opening in write mode.
-    FILE * p_file = fopen(file_name, "w");
-    if (p_file == NULL){
-        fprintf(stderr, "Error save_string_list_in_file() : file opening filed.");
-        exit(EXIT_FAILURE);
-    }
-    // Write each stirng from the array in the file.
-    for (int index = 0 ; index < length; index ++){
-        fputs(words[index], p_file);
-        fputs("\n", p_file);
-    }
-    // Closing the file.
-    fclose(p_file);
-    // End program with success status.
-    return EXIT_SUCCESS;
-}
 
-// Function to restore an array of string from a file.
-int restore_string_array_from_file(char ** words, int length, char * file_name){
-    //  Test input string array.
-    if (words == NULL){
-        fprintf(stderr, "Error restore_string_array_from_file() : word points to null.");
-        exit(EXIT_FAILURE);
+    // Allocate memory for the table of strings.
+    *p_string_table = (char **)malloc(*p_table_len * sizeof(char *));
+    if (*p_string_table == NULL) {
+        perror("Error allocating memory for string table");
+        close(fd);
+        return;
     }
-    // File opening.
-    FILE * p_file = fopen(file_name, "r");
-    if (p_file == NULL){
-        fprintf(stderr, "Error restore_string_array_from_file() : file opening filed.");
-        exit(EXIT_FAILURE);
+
+    // Read each string.
+    for (int i = 0; i < *p_table_len; i++) {
+        int str_len;
+        // Read the length of the string.
+        if (read(fd, &str_len, sizeof(int)) != sizeof(int)) {
+            perror("Error reading string length");
+            close(fd);
+            return;
+        }
+
+        // Allocate memory for the string.
+        (*p_string_table)[i] = (char *)malloc(str_len);
+        if ((*p_string_table)[i] == NULL) {
+            perror("Error allocating memory for string");
+            close(fd);
+            return;
+        }
+
+        // Read the string itself.
+        if (read(fd, (*p_string_table)[i], str_len) != str_len) {
+            perror("Error reading string");
+            close(fd);
+            return;
+        }
     }
-    // Restore each words from file in string array.
-    for (int index = 0 ; index < length; index ++){
-        fgets(words[index], 100, p_file);
-        // Dans le cas ou '\n' a ete enregistre dans word[index] on le remplace par '\0'.
-        words[index][strcspn(words[index], "\n")] = '\0';
-    }
+
     // Close the file.
-    fclose(p_file);
-    // Exit program with sucess.
-    return EXIT_SUCCESS;
+    close(fd);
 }

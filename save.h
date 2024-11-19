@@ -1,10 +1,8 @@
 #ifndef SAVE_H
 #define SAVE_H
 
-char ** getQuantList();
-
-int save_string_array_in_file(char ** words, int length, char * file_name);
-int restore_string_array_from_file(char ** words, int length, char * file_name);
+void save(int table_len, char *string_table[], char *file_name_to_save);
+void restore(int *p_table_len, char ***p_string_table, char *file_name_to_restore);
 
 #endif
 
