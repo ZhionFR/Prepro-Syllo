@@ -130,7 +130,7 @@ int main() {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
             }
 
-            // Declaration et defintion de la figure
+            // Declaration and definition of the figure
             printf("Choissisez votre figure : \n");
             printf("Figure 1 : \n");
             printFigures(1, fileA, fileE, fileI, fileO, propS, propP, propM,
@@ -170,10 +170,10 @@ int main() {
         printf("\n");
     */
 
-        // Valider (ou non) le syllogisme
-
+        // Validate (or not) the syllogism 
+        
         int rules[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
-        // dans l'ordre : Rmnt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
+        // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
         int loop = 1;
         while(loop) {
