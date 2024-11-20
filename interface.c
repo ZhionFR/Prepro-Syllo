@@ -188,10 +188,10 @@ char *getSentence(char ** fileA, char ** fileE, char ** fileI, char ** fileO, in
 
 void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char ** fileO,
                   char *S, char *P, char *M, int q1, int q2, int q3, int v1, int v2, int v3){
-    char *s1, *s2, *s3;
-    s1 = getSentence(fileA, fileE, fileI, fileO, q1, v1);
-    s2 = getSentence(fileA, fileE, fileI, fileO, q2, v2);
-    s3 = getSentence(fileA, fileE, fileI, fileO, q3, v3);
+
+    char *s1 = getSentence(fileA, fileE, fileI, fileO, q1, v1);
+    char *s2 = getSentence(fileA, fileE, fileI, fileO, q2, v2);
+    char *s3 = getSentence(fileA, fileE, fileI, fileO, q3, v3);
     if (figNum == 1) {
         printPropo(s1, M, P, "{S}", "{P}");
         printf("\n");

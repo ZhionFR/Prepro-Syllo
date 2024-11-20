@@ -1,5 +1,4 @@
 #include "stdio.h"
-#include "stdlib.h"
 
 #include "traitement.h"
 
@@ -86,10 +85,6 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
 // Transform q in two booleans p and u according to the value they have 
 void translate(int q, int *p, int *u) {
     switch (q) {
-        case 0 :
-            // Check if q is valid beforehand
-            printf("error while inputing q");
-            break;
         case 1 :
             *p = 1;
             *u = 1;
@@ -105,6 +100,10 @@ void translate(int q, int *p, int *u) {
         case 4 :
             *p = 0;
             *u = 0;
+            break;
+        default :
+            // Check if q is valid beforehand
+                printf("error while inputing q");
             break;
     }
 }
@@ -182,8 +181,7 @@ void printLignDetailled(int fig, int q1, int q2, int q3) {
 */
 
 void exchange(char **wrd1, char **wrd2) {
-    char *temp;
-    temp = *wrd1;
+    char *temp = *wrd1;
     *wrd1 = *wrd2;
     *wrd2 = temp;
 }
