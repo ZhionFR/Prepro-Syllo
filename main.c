@@ -43,6 +43,11 @@ int main() {
     restore(&ptr, &fileO, "Chaines_O");
     len[3] = ptr;
 
+    int *lentPtr[4];
+    for (int i = 0; i < 4; i++){
+        lentPtr[i] = &len[i];
+    }
+
     // Ask for the method the user wants
     printf("Quelle methode choissez vous ?\n"
 
@@ -58,9 +63,21 @@ int main() {
         case 1:
             // Receive the three quantifiers.
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
+            if (q1 == -2) {
+                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                goto save;
+            }
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
+            if (q2 == -2) {
+                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                goto save;
+            }
             q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-            
+            if (q3 == -2) {
+                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                goto save;
+            }
+
             // Receive the subject, the middle term, and the predicate
             getName(S, propS);
             if (isDeadStr(propS)) exit(0);
@@ -89,43 +106,65 @@ int main() {
         
         // The advanced entry
         case 2:
+            // S1 et P1
+            char* propS1 = (char*)malloc(50 * sizeof(char));
+            char* propP1 = (char*)malloc(50 * sizeof(char));
+
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
-            getName(S1, propM);
+            if (q1 == -2) {
+                add_quantif( lentPtr, fileA, fileE, fileI, fileO);
+                goto save;
+            }
+            getName(S1, propS1);
             if (isDeadStr(propM)) exit(0);
-            getName(P1, propP);
+            getName(P1, propP1);
             if (isDeadStr(propP)) exit(0);
             
             
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
+            if (q2 == 2) {
+                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                goto save;
+            }
             printf("Est-ce le sujet de la deuxieme premice est :\n"
                    "1. %s\n2. %s\nAutre : ecrire votre sujet directement.\n",
-                   propM, propP);
+                   propS1, propP1);
             scanf("%s", propS);
             if (isDeadStr(propS)) exit(0);
             if (!strcmp(propS, "1")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-                getName(S, propS);
+                if (q3 == -2) {
+                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    goto save;
+                }
+                propM = propS1;
+                propP = propP1;
                 fig = 3;
+                getName(S, propS);
             } else if (!strcmp(propS, "2")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
-                // TODO exchange(&propM, &propP);
-                exchange(propM, propP);
+                if (q3 == -2) {
+                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    goto save;
+                }
+                propM = propP1;
+                propP = propS1;
                 fig = 4;
                 getName(S, propS);
             } else {
                 printf("Quel est le predicat de la deuxieme premice :\n"
-                       "1. %s\n2. %s\n", propM, propP);
+                       "1. %s\n2. %s\n", propS1, propP1);
                 int choice;
                 scanf("%i", &choice);
                 switch (choice) {
                     case 1 :
-                        // TODO exchange(&propM, &propP);
-                        exchange(propM, propP);
+                        propM = propS1;
+                        propP = propP1;
                         fig = 2;
                         break;
                     case 2 :
-                        // TODO exchange(&propM, &propP);
-                        exchange(propM, propP);
+                        propM = propP1;
+                        propP = propS1;
                         fig = 1;
                         break;
                     default :
@@ -133,11 +172,15 @@ int main() {
                         exit(0);
                 }
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
+                if (q3 == -2) {
+                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    goto save;
+                }
             }
 
-            printf("votre syllogisme est : ");
-            printFigures(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
-                         q1, q2, q3, v1, v2, v3);
+            printf("votre syllogisme est : \n");
+            printFiguresMethod2(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
+                                propS1, propP1, q1, q2, q3, v1, v2, v3);
             break;
         // The simple table
         case 3:
@@ -153,7 +196,9 @@ int main() {
 
         case 5 :
             // test case
-            printf("\e[1;34mThis is a blue text.\e[0m");
+            goto save;
+            // test case end
+            needCheck = 0;
             break;
         default :
             // Check if q is valid beforehand
@@ -183,8 +228,8 @@ int main() {
         // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
         // Check if the syllogism is valid, and indicate the rules it broke if not
-        int loop = 1;
-        while(loop) {
+        int stop = 0;
+        while(!stop) {
 
             printf("Votre syllogisme est :\n");
             printFigures(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
@@ -194,17 +239,50 @@ int main() {
 
             int res = verify(fig, q1, q2, q3, rules);
             if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
-            else printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
-            printf("Continuer ? (1 pour oui, 0 pour finir)\n");
-            scanf("%i", &loop);
+            else {
+                printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
+                printf(""
+                       "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn  :: Rpp :: Rp  :: Ruu :: Raa ::\n"
+                       "::------::----::----::----::-----::-----::-----::-----::-----::-----::-----::-----::\n");
+                printLignDetailled(fig, q1, q2, q3);
+                printf("Pour l'explication des regles non respectees, taper -1.\n");
+            }
+            printf("Continuer ? (0 pour oui, 1 pour finir, 2 pour le manuel des regles)\n");
+            scanf("%i", &stop);
+            if (stop == -1){
+                printWrongRules(fig, q1, q2, q3, rules);
+            }
+            if (stop == 2){
+                printManual();
+            }
         }
     }
 
     // save files in case of modification
-    //save(len[0], fileA, "Chaine_A");
-    //save(len[1], fileE, "Chaine_E");
-    //save(len[2], fileI, "Chaine_I");
-    //save(len[3], fileO, "Chaine_O");
+
+save:
+    
+    /*
+    printf("Quantificateurs sauvegardes : \n");
+    int index = 1;
+    printf("\n=== Universel positif (A) : \n");
+    index = printQuantList(fileA, index, len[0]);
+    printf("\n=== Universel negatif (E) : \n");
+    index = printQuantList(fileE, index, len[1]);
+    printf("\n=== Existentiel positif (I) : \n");
+    index = printQuantList(fileI, index, len[2]);
+    printf("\n=== Existentiel negatif (O) : \n");
+    index = printQuantList(fileO, index, len[3]);
+    */
+
+    /*
+    printf("Saving\n");
+    save(len[0], fileA, "Chaines_A");
+    save(len[1], fileE, "Chaines_E");
+    save(len[2], fileI, "Chaines_I");
+    save(len[3], fileO, "Chaines_O");
+    printf("Saved\n");
+     */
 
     return 0;
 

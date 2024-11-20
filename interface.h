@@ -14,9 +14,11 @@ enum {NotAFig, Barbara, Barbari, Celarent, Celaront, Darii, Ferio, Cesare, Cesar
 int isDead(int value);
 int isDeadStr(const char* name);
 
-int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+void clear_input_buffer();
 
-void add_quantif(int len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+int getQuantif(int num, int len[], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+
+int add_quantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
 int getFilter(int fA, int fE, int fI, int fO);
 int printQuantList(char ** words, int index, int len);
@@ -30,6 +32,9 @@ void printPropo(char* sentence, char* S, char* P, char* placeholderS, char* plac
 char *getSentence(char ** fileA, char ** fileE, char ** fileI, char ** fileO, int q, int v);
 void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char ** fileO,
                   char *S, char *P, char *M, int q1, int q2, int q3, int v1, int v2, int v3);
+
+void printFiguresMethod2(int figNum, char ** fileA, char ** fileE, char ** fileI, char ** fileO,
+                         char *S, char *P, char *M, char *S1, char *P1, int q1, int q2, int q3, int v1, int v2, int v3);
 
 
 void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder);

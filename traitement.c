@@ -3,6 +3,10 @@
 #include "traitement.h"
 
 
+// pas de panique
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wincompatible-pointer-types-discards-qualifiers"
+
 
 int verify(int fig, int q1, int q2, int q3, int rules[]){
 
@@ -19,10 +23,10 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
     translate(q2, &p2, &u2);
     translate(q3, &p3, &u3);
 
-    // Rmt (Règle du moyen-terme) : The quantity of M need to be universal in one of the two premises at least.
+    // Rmt (Regle du moyen-terme) : The quantity of M need to be universal in one of the two premises at least.
     int Rmt = (((f1 || f3) && u1) || ((f2 || f4) && (!p1))) || (((f3 || f4) && u2) || ((f1 || f2) && (!p2)));
 
-    // Rlh (Règle du latius hos) : The quantity of one term of the conclusion is universal only if it is in the premise where it belongs.
+    // Rlh (Regle du latius hos) : The quantity of one term of the conclusion is universal only if it is in the premise where it belongs.
 
     // Check if the conclusion's subject is universal and if so, if in the second premise, the word is universal too
     int s;
@@ -163,19 +167,164 @@ const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
 
 void printLignDetailled(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
-           fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOLD[verify(fig, q1, q2, q3, ruleRmt)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRlh)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRnn)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRn)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRpp)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRp)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRuu)],
-           BOOLD[verify(fig, q1, q2, q3, ruleRaa)]);
+            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
+            BOOLD[verify(fig, q1, q2, q3, ruleRmt)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRlh)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRnn)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRn)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRpp)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRp)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRuu)],
+            BOOLD[verify(fig, q1, q2, q3, ruleRaa)]);
 }
 
-void exchange(char **wrd1, char **wrd2) {
-    char *temp = *wrd1;
-    *wrd1 = *wrd2;
-    *wrd2 = temp;
+void printWrongRules(int fig, int q1, int q2, int q3, int rules[]) {
+    int ruleInint[9] = { rules[0], rules[1], rules[2], rules[3],
+                         rules[4], rules[5], rules[6], rules[7], 1};
+    int Rmt = rules[0] && verify(fig, q1, q2, q3, ruleRmt);
+    int Rlh = rules[1] && verify(fig, q1, q2, q3, ruleRlh);
+    int Rnn = rules[2] && verify(fig, q1, q2, q3, ruleRnn);
+    int Rn = rules[3] && verify(fig, q1, q2, q3, ruleRn);
+    int Rpp = rules[4] && verify(fig, q1, q2, q3, ruleRpp);
+    int Rp = rules[5] && verify(fig, q1, q2, q3, ruleRp);
+    int Ruu = rules[6] && verify(fig, q1, q2, q3, ruleRuu);
+    int Raa = rules[7] && verify(fig, q1, q2, q3, ruleRaa);
+    int Inint = rules[8] && verify(fig, q1, q2, q3, ruleInint);
+
+    if (!Rmt) {
+        printf("\nPour la regle Rmt :\n"
+               "\n"
+               "La premiere premisse debute par un quantificateur particulier;\n"
+               "la seconde premisse debute egalement par un quantificateur particulier.\n"
+               "Comme deux premisses particulieres ne peuvent donner de conclusion,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Rlh) {
+        printf("\nPour la regle Rlh :\n"
+               "\n"
+               "Au moins l\'un des deux termes de la conclusion est universel;\n"
+               "Ce meme terme est particulier dans la premisse a laquelle il appartient.\n"
+               "Comme la quantite d\'un terme de la conclusion ne peut etre universelle que si elle l\'est dans la premisse contenant ce terme.\n"
+               "La conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Rnn) {
+        printf("\nPour la regle Rnn :\n"
+               "\n"
+               "La premiere premisse debute par un quantificateur negatif ;\n"
+               "la seconde premisse debute par egalement par un quantificateur negatif.\n"
+               "Comme deux premisses negatives ne peuvent donner de conclusion,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Rn) {
+        printf("\nPour la regle Rn :\n"
+               "\n"
+               "L\'une des deux premiere premisses est negative ;\n"
+               "la conclusion debute par une premisse positive.\n"
+               "Comme une la presence d\'une premisse negative donne une conclusion positive,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Rpp) {
+        printf("\nPour la regle Rpp :\n"
+               "\n"
+               "La premiere premisse debute par un quantificateur positif ;\n"
+               "la seconde premisse debute egalement par un quantificateur positif;\n"
+               "la conclusion debute par un quantificateur negatif.\n"
+               "Comme deux premisses positives ne peuvent donner une conclusion positive,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Rp) {
+        printf("\nPour la regle Rp :\n"
+               "\n"
+               "L\'une des premisses debute par un quantificateur particulier.\n"
+               "Comme une premisse particuliere donnent une conclusion particuliere,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Ruu) {
+        printf("\nPour la regle Ruu :\n"
+               "\n"
+               "La premiere premisse debute par un quantificateur universel ;\n"
+               "la seconde premisse debute egalement par un quantificateur universel ;\n"
+               "la conclusion debute par un quantificateur particulier.\n"
+               "Comme deux premisses universelles ne donnent pas de conclusion particuliere,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide\n");
+    }
+    if (!Raa) {
+        printf("\nPour la regle Raa :\n"
+               "\n"
+               "La premiere premisse debute par un quantificateur positif;\n"
+               "la seconde premisse debute egalement par un quantificateur positif ;\n"
+               "la conclusion debute par un quantificateur negatif.\n"
+               "Comme deux premisses positives donnent une conclusion positive,\n"
+               "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    }
+    if (!Inint) {
+        printf("\nPour la regle Inint :\n"
+               "\n"
+               "Le syllogisme est ininteressant.\n"
+               "En effet, on peut trouver un syllogisme plus fort avec une conclusion universelle.\n");
+    }
+
+
 }
+
+
+void printManual() {
+    printf("\nPour la regle Rmt :\n"
+           "\n"
+           "La premiere premisse debute par un quantificateur particulier;\n"
+           "la seconde premisse debute egalement par un quantificateur particulier.\n"
+           "Comme deux premisses particulieres ne peuvent donner de conclusion,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Rlh :\n"
+           "\n"
+           "Au moins l\'un des deux termes de la conclusion est universel;\n"
+           "Ce meme terme est particulier dans la premisse a laquelle il appartient.\n"
+           "Comme la quantite d\'un terme de la conclusion ne peut etre universelle que si elle l\'est dans la premisse contenant ce terme.\n"
+           "La conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Rnn :\n"
+           "\n"
+           "La premiere premisse debute par un quantificateur negatif ;\n"
+           "la seconde premisse debute par egalement par un quantificateur negatif.\n"
+           "Comme deux premisses negatives ne peuvent donner de conclusion,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Rn :\n"
+           "\n"
+           "L\'une des deux premiere premisses est negative ;\n"
+           "la conclusion debute par une premisse positive.\n"
+           "Comme une la presence d\'une premisse negative donne une conclusion positive,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Rpp :\n"
+           "\n"
+           "La premiere premisse debute par un quantificateur positif ;\n"
+           "la seconde premisse debute egalement par un quantificateur positif;\n"
+           "la conclusion debute par un quantificateur negatif.\n"
+           "Comme deux premisses positives ne peuvent donner une conclusion positive,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Rp :\n"
+           "\n"
+           "L\'une des premisses debute par un quantificateur particulier.\n"
+           "Comme une premisse particuliere donnent une conclusion particuliere,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Ruu :\n"
+           "\n"
+           "La premiere premisse debute par un quantificateur universel ;\n"
+           "la seconde premisse debute egalement par un quantificateur universel ;\n"
+           "la conclusion debute par un quantificateur particulier.\n"
+           "Comme deux premisses universelles ne donnent pas de conclusion particuliere,\n"
+           "la conclusion saisie n\'est pas deductible des deux premisses et le syllogisme n\'est donc pas valide\n");
+    printf("\nPour la regle Raa :\n"
+           "\n"
+           "La premiere premisse debute par un quantificateur positif;\n"
+           "la seconde premisse debute egalement par un quantificateur positif ;\n"
+           "la conclusion debute par un quantificateur negatif.\n"
+           "Comme deux premisses positives donnent une conclusion positive,\n"
+           "la conclusion saisie n\'est pas deeductible des deux premisses et le syllogisme n\'est donc pas valide.\n");
+    printf("\nPour la regle Inint :\n"
+           "\n"
+           "Le syllogisme est ininteressant.\n"
+           "En effet, on peut trouver un syllogisme plus fort avec une conclusion universelle.\n");
+
+}
+
+
+#pragma clang diagnostic pop

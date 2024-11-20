@@ -15,6 +15,7 @@ void printTableDetailled();
 void printLign(int fig, int q1, int q2, int q3);
 void printLignDetailled(int fig, int q1, int q2, int q3);
 
-void exchange(char **wrd1, char **wrd2);
+void printWrongRules(int fig, int q1, int q2, int q3, int rules[]);
+void printManual();
 
 #endif

@@ -1,8 +1,14 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "save.h"
+
 
 #include "interface.h"
+// pas de panique
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-type"
+
 
 // Check if value is 0
 int isDead(int value) {
@@ -14,8 +20,15 @@ int isDeadStr(const char* name) {
     return (strcmp(name, "0")) == KILL;
 }
 
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF) {
+        // Discard all characters in the input buffer
+    }
+}
+
 // Return the number for the quantifier between 1 and 4
-int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO) {
+int getQuantif(int num, int len[], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO) {
     int stop = 0;
     int index = 1, temp;
     int filterA = 1, filterE = 1, filterI = 1, filterO = 1;
@@ -51,8 +64,10 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
             stop = 1;
         }
 
-        // New quantifier TODO
-        //if (choice == -2) add_quantif(len, fileA, fileE, fileI, fileO);
+        // New quantifier
+        if (choice == -2) {
+            return -2;
+        }
 
         // Condition for exiting the function
         if (isDead(choice)){
@@ -76,9 +91,6 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
                     case 4 :
                         filterO = !filterO;
                         break;
-                    default :
-                        printf("error while choosing filter");
-                        exit(0);
                 }
             } while (choice != -1);
             index = 1;
@@ -120,8 +132,52 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
     }
 }
 
-// TODO : add quantif with restore_and_add()
-void add_quantif(int len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+
+
+// Add a quantifier in the txt file.
+int add_quantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO){
+
+    // Ask for the new quantif
+    char str1[100]; // Static buffer size, adjust as needed.
+    int type = 0;
+    printf("Quel est le type de votre quantificateur : \n"
+           "1. Universel positif (A)\n"
+           "2. Universel negatif (E)\n"
+           "3. Existentiel positif (I)\n"
+           "4. Existentiel negatif (O)\n");
+    scanf("%i", &type);
+
+
+    printf("Merci de saisir votre quantificateur.\n"
+           "N'oubliez pas d'indiquer la position des {S} et {P} afin de pouvoir les utiliser plus tard.\n"
+           "Si jamais vous souhaitez supprimer un quantificateur, merci de le faire dans le fichier.txt correspondant.\n");
+    clear_input_buffer();
+    fgets(str1, sizeof(str1), stdin);
+
+    switch (type) {
+        case 0:
+            exit(0);
+        case 1 :
+            fileA = addstr(fileA, str1);
+            *len[0] = *len[0] + 1;
+            break;
+        case 2 :
+            fileE = addstr(fileE, str1);
+            *len[1] = *len[1] + 1;
+            break;
+        case 3 :
+            fileI = addstr(fileI, str1);
+            *len[2] = *len[2] + 1;
+            break;
+        case 4 :
+            fileO = addstr(fileO, str1);
+            *len[3] = *len[3] + 1;
+            break;
+        default :
+            printf("error while taking type of quantif");
+            exit(0);
+    }
+}
 
 // The function to show the possible filters with their status (on/off)
 int getFilter(int fA, int fE, int fI, int fO) {
@@ -233,6 +289,50 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
     }
 }
 
+void printFiguresMethod2(int figNum, char ** fileA, char ** fileE, char ** fileI, char ** fileO,
+                  char *S, char *P, char *M, char *S1, char *P1, int q1, int q2, int q3, int v1, int v2, int v3){
+
+    char *s1 = getSentence(fileA, fileE, fileI, fileO, q1, v1);
+    char *s2 = getSentence(fileA, fileE, fileI, fileO, q2, v2);
+    char *s3 = getSentence(fileA, fileE, fileI, fileO, q3, v3);
+    if (figNum == 1) {
+        printPropo(s1, S1, P1, "{S}", "{P}");
+        printf("\n");
+        printPropo(s2, S, M, "{S}", "{P}");
+        printf("\n");
+        printPropo(s3, S, P, "{S}", "{P}");
+        printf("\n");
+        printf("\n");
+    }
+    if (figNum == 2) {
+        printPropo(s1, S1, P1, "{S}", "{P}");
+        printf("\n");
+        printPropo(s2, S, M, "{S}", "{P}");
+        printf("\n");
+        printPropo(s3, S, P, "{S}", "{P}");
+        printf("\n");
+        printf("\n");
+    }
+    if (figNum == 3) {
+        printPropo(s1, S1, P1, "{S}", "{P}");
+        printf("\n");
+        printPropo(s2, M, S, "{S}", "{P}");
+        printf("\n");
+        printPropo(s3, S, P, "{S}", "{P}");
+        printf("\n");
+        printf("\n");
+    }
+    if (figNum == 4) {
+        printPropo(s1, S1, P1, "{S}", "{P}");
+        printf("\n");
+        printPropo(s2, M, S, "{S}", "{P}");
+        printf("\n");
+        printPropo(s3, S, P, "{S}", "{P}");
+        printf("\n");
+        printf("\n");
+    }
+}
+
 void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder) {
     char *pos = strstr(phrase, placeholder); // on trouve la position du placeholder
     int phlen = strlen(placeholder); // on determine sa longueur
@@ -316,3 +416,5 @@ void askRules(int rules[]) {
 void printError(int result[]) {
 }
 
+
+#pragma clang diagnostic pop
