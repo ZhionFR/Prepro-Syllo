@@ -143,7 +143,12 @@ int main() {
             needCheck = 0;
             printTableau();
             break;
+        // The advanced Table
         case 4 :
+            needCheck = 0;
+            printTableauDetailled();
+            break;
+        case 5 :
             // test case
             break;
         default :
@@ -182,15 +187,6 @@ int main() {
                          q1, q2, q3, v1, v2, v3);
 
             askRules(rules);
-
-            const int ruleRmt[9] = {1 && rules[0], 0, 0, 0, 0, 0, 0, 0, 0};
-            const int ruleRlh[9] = {0, 1 && rules[1], 0, 0, 0, 0, 0, 0, 0};
-            const int ruleRnn[9] = {0, 0, 1 && rules[2], 0, 0, 0, 0, 0, 0};
-            const int ruleRn[9] = {0, 0, 0, 1 && rules[3], 0, 0, 0, 0, 0};
-            const int ruleRpp[9] = {0, 0, 0, 0, 1 && rules[4], 0, 0, 0, 0};
-            const int ruleRp[9] = {0, 0, 0, 0, 0, 1 && rules[5], 0, 0, 0};
-            const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1 && rules[6], 0, 0};
-            const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1 && rules[7], 0};
 
             int res = verify(fig, q1, q2, q3, rules);
             if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
