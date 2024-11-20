@@ -3,7 +3,8 @@
 
 #define QUANTIFS "XAEIO"
 #define BOOL (const char*[]){"non valide","  valide  "}
-#define BOOLD (const char*[]){"non","oui"}
+#define BOOLD (const char*[]){"non", "oui"}
+
 
 int verify(int fig, int q1, int q2, int q3, int rules[]);
 void translate(int q, int *p, int *u);

@@ -47,7 +47,8 @@ int main() {
     printf("Quelle methode choissez vous ?\n"
            "1 pour saisie simple.\n"
            "2 pour saisie avancee.\n"
-           "3 pour le tableau simple.\n");
+           "3 pour le tableau simple.\n"
+           "4 pour le tableau detaille.\n");
     scanf("%i", &method);
 
     // The various methods

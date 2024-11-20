@@ -2,6 +2,8 @@
 
 #include "traitement.h"
 
+
+
 int verify(int fig, int q1, int q2, int q3, int rules[]){
 
     int u1, u2, u3; // Universal booleans
@@ -143,13 +145,11 @@ const int ruleAll[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 
 void printLign(int fig, int q1, int q2, int q3) {
-    if (verify(fig, q1, q2, q3, ruleNoInEx) || verify(fig, q1, q2, q3, ruleNoIn) || verify(fig, q1, q2, q3, ruleAll)) {
-        printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
-               fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-                BOOL[verify(fig, q1, q2, q3, ruleNoIn)],
-                BOOL[verify(fig, q1, q2, q3, ruleNoInEx)],
-                BOOL[verify(fig, q1, q2, q3, ruleAll)]);
-    }
+    printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
+            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
+            BOOL[verify(fig, q1, q2, q3, ruleNoIn)],
+            BOOL[verify(fig, q1, q2, q3, ruleNoInEx)],
+            BOOL[verify(fig, q1, q2, q3, ruleAll)]);
 }
 
 const int ruleRmt[9] = {1, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -160,7 +160,6 @@ const int ruleRpp[9] = {0, 0, 0, 0, 1, 0, 0, 0, 0};
 const int ruleRp[9] = {0, 0, 0, 0, 0, 1, 0, 0, 0};
 const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1, 0, 0};
 const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
-
 
 void printLignDetailled(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
