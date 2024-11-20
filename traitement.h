@@ -9,8 +9,8 @@
 int verify(int fig, int q1, int q2, int q3, int rules[]);
 void translate(int q, int *p, int *u);
 
-void printTableau();
-void printTableauDetailled();
+void printTable();
+void printTableDetailled();
 
 void printLign(int fig, int q1, int q2, int q3);
 void printLignDetailled(int fig, int q1, int q2, int q3);

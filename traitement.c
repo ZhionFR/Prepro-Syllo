@@ -107,7 +107,7 @@ void translate(int q, int *p, int *u) {
     }
 }
 
-void printTableau() {
+void printTable() {
     printf(""
            "::NumFig:: Q1 :: Q2 :: Q3 :: validite :: validite sans existence :: validite avec inint ::\n"
            "::------::----::----::----::----------::-------------------------::---------------------::\n");
@@ -122,7 +122,7 @@ void printTableau() {
     }
 }
 
-void printTableauDetailled() {
+void printTableDetailled() {
     printf(""
            "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn  :: Rpp :: Rp  :: Ruu :: Raa ::\n"
            "::------::----::----::----::-----::-----::-----::-----::-----::-----::-----::-----::\n");
