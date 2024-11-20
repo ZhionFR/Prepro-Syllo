@@ -7,40 +7,58 @@ int verify(int q1, int q2, int q3, int rules[]){
 
     int u1, u2, u3; // Universal booleans
     int p1, p2, p3; // Positif booleans
+    int f1, f2, f3, f4; // Type booleans
 
     // Transform qx in two booleans px and ux according to the value they have
     translate(q1, &p1, &u1);
     translate(q2, &p2, &u2);
     translate(q3, &p3, &u3);
 
-    int Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint; // Rules result
-
-
     // Rmt (Règle du moyen-terme) : The quantity of M need to be universal in one of the two premises at least.
-    Rmt = !((!u1) && (!u2));
-    
-    // Rlh (Règle du latius hos) : The quantity of one term of the conclusion can't be universal if it is in the premise where he belongs.
-    Rlh = ((u1 && u3) || (u1 && !p3) || (!u1 && p3)) && (u2 && u3) || (!u2 && !u3);
-    
+    int Rmt = (((f1 || f3) && u1) || ((f2 || f4) && (!p1))) || (((f3 || f4) && u2) || ((f1 || f2) && (!p2)));
+
+    // Rlh (Règle du latius hos) : The quantity of one term of the conclusion is universal only if it is in the premise where it belongs.
+
+    // Check if the conclusion's subject is universal and if so, if in the second premise, the word is universal too
+    int s;
+    if(u3) s = ((f1 || f2) && u2) || ((f3 || f4) && (!p2));
+    else s = !(((f1 || f2) && u2) || ((f3 || f4) && (!p2)));
+    // Check if the conclusion's predicate is universal and if so, if in the second premise, the word is universal too
+    int p;
+    if(!p3) p = (((f2 || f4) && (u1)) || ((f1 || f3) && (!p1)));
+    else p = !(((f2 || f4) && (u1)) || ((f1 || f3) && (!p1)));
+
+    // Check if both the conditions are required for the rule
+    int Rlh = s && p;
+
     // Rnn : Two negative premises can't give a negative conclusion
-    Rnn = ((!p1) && (!p2) && p3) || p3;
+    int Rnn = p1 || p2;
     
     // Rn : If a premise is negative, the conclusion is negative too
-    Rn = ((!p1) || (!p2)) && (!p3) || p3;
-    
-    // Raa : Two affirmative premises give an affirmative conclusion
-    Raa = (p1 && p2 && p3) || !p3;
-    
+    int Rn;
+    if((!p1) || (!p2)) Rn = (!p3);
+    else Rn = 1;
+
     // Rpp : Two particular premises can't give a conclusion
-    Rpp = ((!u1) && (!u2) && (!u3)) || u3;
+    int Rpp = u1 || u2;
     
-    // Rp : If a premise is particular 
-    Rp = (((!u1) || (!u2)) && (!u3)) || u3;
+    // Rp : If a premise is particular the conclusion is particular too
+    int Rp;
+    if((!u1) || (!u2)) Rp =(!u3);
+    else Rp = 1;
     
     // Ruu : Two universal premises can't give a particular conclusion
-    Ruu = (u1 && u2 && u3) || !u3;
+    int Ruu = (u1 && u2 && u3) || !u3;
 
-    // Check if a syllogism with an existential conclusion is still valid after changing to an universal conclusion ; in which case the original syllogism is uninteresting
+    // Raa : Two affirmative premises give an affirmative conclusion
+    int Raa;
+    if(p1 && p2) Raa = p3;
+    else Raa = 1;
+
+    int Inint;
+
+    // Check if a syllogism with an existential conclusion is still valid after changing to a universal conclusion ; in which case the original syllogism is uninteresting
+
     if (q3 == 3) Inint = verify(q1, q2, 1, rules);
     else if (q3 == 4) Inint = verify(q1, q2, 2, rules);
     else Inint = 1;
