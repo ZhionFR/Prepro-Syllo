@@ -37,4 +37,7 @@ void replacePlaceholder(char *phrase, char *name, char *result, char* placeholde
 int getRules(int rules[]);
 void askRules(int rules[]);
 
+void printError(int result[]);
+
+
 #endif

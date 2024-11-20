@@ -25,16 +25,16 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
     // Check if the conclusion's subject is universal and if so, if in the second premise, the word is universal too
     int s;
     if(u3) s = (((f1 || f2) && u2) || ((f3 || f4) && (!p2)));
-    else s = !(((f1 || f2) && u2) || ((f3 || f4) && (!p2)));
-    // Check if the conclusion's predicate is universal and if so, if in the second premise, the word is universal too
+    else s = 1;
+    // Check if the conclusion's predicate is universal and if so, if in the first premise, the word is universal too
     int p;
     if(!p3) p = (((f2 || f4) && (u1)) || ((f1 || f3) && (!p1)));
-    else p = !(((f2 || f4) && (u1)) || ((f1 || f3) && (!p1)));
+    else p = 1;
 
     // Check if both the conditions are required for the rule
     int Rlh = (s && p);
 
-    // Rnn : Two negative premises can't give a negative conclusion
+    // Rnn : Two negative premises can't give a conclusion
     int Rnn = (p1 || p2);
     
     // Rn : If a premise is negative, the conclusion is negative too
@@ -51,7 +51,7 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
     else Rp = 1;
     
     // Ruu : Two universal premises can't give a particular conclusion
-    int Ruu = (u1 && u2 && u3) || !u3;
+    int Ruu = !(u1 && u2 && !u3);
 
     // Raa : Two affirmative premises give an affirmative conclusion
     int Raa;
@@ -77,8 +77,10 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
               (Raa || !rules[7]) &&
               (Inint || !rules[8]);
 
-    printf("%i, %i, %i, %i, %i, %i, %i, %i, %i",
-           Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint);
+
+    // 1 : Rlh, Ruu
+    // 2 : Rlh, Ruu
+    // 3 : Rlh / Ruu, Inint
 
     return res;
 }
@@ -147,11 +149,13 @@ const int ruleAll[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 
 
 void printLign(int fig, int q1, int q2, int q3) {
-    printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
-           fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOL[verify(fig, q1, q2, q3, ruleNoIn)],
-           BOOL[verify(fig, q1, q2, q3, ruleNoInEx)],
-           BOOL[verify(fig, q1, q2, q3, ruleAll)]);
+    if (verify(fig, q1, q2, q3, ruleNoInEx) || verify(fig, q1, q2, q3, ruleNoIn) || verify(fig, q1, q2, q3, ruleAll)) {
+        printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
+               fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
+                BOOL[verify(fig, q1, q2, q3, ruleNoIn)],
+                BOOL[verify(fig, q1, q2, q3, ruleNoInEx)],
+                BOOL[verify(fig, q1, q2, q3, ruleAll)]);
+    }
 }
 
 /*

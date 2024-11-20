@@ -314,3 +314,6 @@ void askRules(int rules[]) {
     }
 }
 
+void printError(int result[]) {
+}
+
