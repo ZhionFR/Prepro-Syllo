@@ -77,11 +77,6 @@ int verify(int fig, int q1, int q2, int q3, int rules[]){
               (Raa || !rules[7]) &&
               (Inint || !rules[8]);
 
-
-    // 1 : Rlh, Ruu
-    // 2 : Rlh, Ruu
-    // 3 : Rlh / Ruu, Inint
-
     return res;
 }
 // Transform q in two booleans p and u according to the value they have 

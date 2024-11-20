@@ -12,7 +12,7 @@ enum {NotAFig, Barbara, Barbari, Celarent, Celaront, Darii, Ferio, Cesare, Cesar
 #define STATUS (const char*[]){"Off","On"}
 
 int isDead(int value);
-int isDeadStr(char* name);
+int isDeadStr(const char* name);
 
 int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 

@@ -17,8 +17,7 @@ int main() {
     int needCheck = 1;
 
     // Declaration of the 3 quantifiers and their 3 versions
-    // TODO int q1 = 0, q2 = 0, q3 = 0;
-    int q1, q2, q3;
+    int q1 = 0, q2 = 0, q3 = 0;
     int v1 = 0, v2 = 0, v3 = 0;
 
     // Declaration and allocation of the types and chains of the {predicates}
@@ -143,8 +142,9 @@ int main() {
             needCheck = 0;
             printTableau();
             break;
-        case 4 :
+        case 5 :
             // test case
+            printf("\e[1;34mThis is a blue text.\e[0m");
             break;
         default :
             // Check if q is valid beforehand
@@ -182,15 +182,6 @@ int main() {
                          q1, q2, q3, v1, v2, v3);
 
             askRules(rules);
-
-            const int ruleRmt[9] = {1 && rules[0], 0, 0, 0, 0, 0, 0, 0, 0};
-            const int ruleRlh[9] = {0, 1 && rules[1], 0, 0, 0, 0, 0, 0, 0};
-            const int ruleRnn[9] = {0, 0, 1 && rules[2], 0, 0, 0, 0, 0, 0};
-            const int ruleRn[9] = {0, 0, 0, 1 && rules[3], 0, 0, 0, 0, 0};
-            const int ruleRpp[9] = {0, 0, 0, 0, 1 && rules[4], 0, 0, 0, 0};
-            const int ruleRp[9] = {0, 0, 0, 0, 0, 1 && rules[5], 0, 0, 0};
-            const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1 && rules[6], 0, 0};
-            const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1 && rules[7], 0};
 
             int res = verify(fig, q1, q2, q3, rules);
             if (res) printf("\nLe syllogisme est valide avec ces regles.\n");

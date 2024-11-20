@@ -10,8 +10,7 @@ int isDead(int value) {
 }
 
 // Check if string = "0"
-// TODO int isDeadStr(const char* name) {
-int isDeadStr(char* name) {
+int isDeadStr(const char* name) {
     return (strcmp(name, "0")) == KILL;
 }
 
@@ -233,7 +232,7 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
         printf("\n");
     }
 }
-// TODO : void replacePlaceholder(const char *phrase, const char *name, const char *result, char* placeholder) {
+
 void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder) {
     char *pos = strstr(phrase, placeholder); // on trouve la position du placeholder
     int phlen = strlen(placeholder); // on determine sa longueur
