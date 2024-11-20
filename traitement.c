@@ -3,11 +3,15 @@
 
 #include "traitement.h"
 
-int verify(int q1, int q2, int q3, int rules[]){
+int verify(int fig, int q1, int q2, int q3, int rules[]){
 
     int u1, u2, u3; // Universal booleans
     int p1, p2, p3; // Positif booleans
-    int f1, f2, f3, f4; // Type booleans
+    // Figure booleans
+    int f1 = (fig == 1);
+    int f2 = (fig == 2);
+    int f3 = (fig == 3);
+    int f4 = (fig == 4);
 
     // Transform qx in two booleans px and ux according to the value they have
     translate(q1, &p1, &u1);
@@ -21,7 +25,7 @@ int verify(int q1, int q2, int q3, int rules[]){
 
     // Check if the conclusion's subject is universal and if so, if in the second premise, the word is universal too
     int s;
-    if(u3) s = ((f1 || f2) && u2) || ((f3 || f4) && (!p2));
+    if(u3) s = (((f1 || f2) && u2) || ((f3 || f4) && (!p2)));
     else s = !(((f1 || f2) && u2) || ((f3 || f4) && (!p2)));
     // Check if the conclusion's predicate is universal and if so, if in the second premise, the word is universal too
     int p;
@@ -29,10 +33,10 @@ int verify(int q1, int q2, int q3, int rules[]){
     else p = !(((f2 || f4) && (u1)) || ((f1 || f3) && (!p1)));
 
     // Check if both the conditions are required for the rule
-    int Rlh = s && p;
+    int Rlh = (s && p);
 
     // Rnn : Two negative premises can't give a negative conclusion
-    int Rnn = p1 || p2;
+    int Rnn = (p1 || p2);
     
     // Rn : If a premise is negative, the conclusion is negative too
     int Rn;
@@ -59,8 +63,8 @@ int verify(int q1, int q2, int q3, int rules[]){
 
     // Check if a syllogism with an existential conclusion is still valid after changing to a universal conclusion ; in which case the original syllogism is uninteresting
 
-    if (q3 == 3) Inint = verify(q1, q2, 1, rules);
-    else if (q3 == 4) Inint = verify(q1, q2, 2, rules);
+    if (q3 == 3) Inint = verify(fig, q1, q2, 1, rules);
+    else if (q3 == 4) Inint = verify(fig, q1, q2, 2, rules);
     else Inint = 1;
 
     // Check which rules are on or not
@@ -146,9 +150,9 @@ const int ruleAll[9] = {1, 1, 1, 1, 1, 1, 1, 1, 1};
 void printLign(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c ::%s::       %s        ::      %s     ::\n",
            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOL[verify(q1, q2, q3, ruleNoIn)],
-           BOOL[verify(q1, q2, q3, ruleNoInEx)],
-           BOOL[verify(q1, q2, q3, ruleAll)]);
+           BOOL[verify(fig, q1, q2, q3, ruleNoIn)],
+           BOOL[verify(fig, q1, q2, q3, ruleNoInEx)],
+           BOOL[verify(fig, q1, q2, q3, ruleAll)]);
 }
 
 /*
@@ -166,14 +170,14 @@ const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
 void printLignDetailled(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOL[verify(q1, q2, q3, ruleRmt)],
-           BOOL[verify(q1, q2, q3, ruleRlh)],
-           BOOL[verify(q1, q2, q3, ruleRnn)],
-           BOOL[verify(q1, q2, q3, ruleRn)],
-           BOOL[verify(q1, q2, q3, ruleRpp)],
-           BOOL[verify(q1, q2, q3, ruleRp)],
-           BOOL[verify(q1, q2, q3, ruleRuu)],
-           BOOL[verify(q1, q2, q3, ruleRaa)]);
+           BOOL[verify(fig, q1, q2, q3, ruleRmt)],
+           BOOL[verify(fig, q1, q2, q3, ruleRlh)],
+           BOOL[verify(fig, q1, q2, q3, ruleRnn)],
+           BOOL[verify(fig, q1, q2, q3, ruleRn)],
+           BOOL[verify(fig, q1, q2, q3, ruleRpp)],
+           BOOL[verify(fig, q1, q2, q3, ruleRp)],
+           BOOL[verify(fig, q1, q2, q3, ruleRuu)],
+           BOOL[verify(fig, q1, q2, q3, ruleRaa)]);
 }
 */
 

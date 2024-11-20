@@ -170,7 +170,7 @@ int main() {
                          q1, q2, q3, v1, v2, v3);
 
             askRules(rules);
-            int res = verify(q1, q2, q3, rules);
+            int res = verify(fig, q1, q2, q3, rules);
             if (res) printf("\nLe syllogisme est valide avec ces regles.\n");
             else printf("\nLe syllogisme n'est pas valide avec ces regles.\n");
             printf("Continuer ? (1 pour oui, 0 pour finir)\n");

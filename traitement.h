@@ -4,7 +4,7 @@
 #define QUANTIFS "XAEIO"
 #define BOOL (const char*[]){"non valide","  valide  "}
 
-int verify(int q1, int q2, int q3, int rules[]);
+int verify(int fig, int q1, int q2, int q3, int rules[]);
 void translate(int q, int *p, int *u);
 
 void printTableau();
