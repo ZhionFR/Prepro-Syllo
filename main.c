@@ -45,9 +45,10 @@ int main() {
 
     // Ask for the method the user wants
     printf("Quelle methode choissez vous ?\n"
-           "1 pour saisie simple.\n"
-           "2 pour saisie avancee.\n"
-           "3 pour le tableau simple.\n");
+           "1 pour saisie simple;\n"
+           "2 pour saisie avancee;\n"
+           "3 pour le tableau simple;\n"
+           "4 pour le tableau avance.\n");
     scanf("%i", &method);
 
     // The various methods
@@ -140,13 +141,13 @@ int main() {
         // The simple table
         case 3:
             needCheck = 0;
-            printTableau();
+            printTable();
             break;
 
         // The advanced Table
         case 4 :
             needCheck = 0;
-            printTableauDetailled();
+            printTableDetailled();
             break;
 
         case 5 :
