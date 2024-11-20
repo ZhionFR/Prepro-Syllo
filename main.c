@@ -17,6 +17,7 @@ int main() {
     int needCheck = 1;
 
     // Declaration of the 3 quantifiers and their 3 versions
+    // TODO int q1 = 0, q2 = 0, q3 = 0;
     int q1, q2, q3;
     int v1 = 0, v2 = 0, v3 = 0;
 
@@ -106,6 +107,7 @@ int main() {
                 fig = 3;
             } else if (!strcmp(propS, "2")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
+                // TODO exchange(&propM, &propP);
                 exchange(propM, propP);
                 fig = 4;
                 getName(S, propS);
@@ -115,16 +117,19 @@ int main() {
                 int choice;
                 scanf("%i", &choice);
                 switch (choice) {
-                    case 0:
-                        exit(0);
                     case 1 :
+                        // TODO exchange(&propM, &propP);
                         exchange(propM, propP);
                         fig = 2;
                         break;
                     case 2 :
+                        // TODO exchange(&propM, &propP);
                         exchange(propM, propP);
                         fig = 1;
                         break;
+                    default :
+                        printf("error while exchanging PropP and PropM");
+                        exit(0);
                 }
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
             }
@@ -138,6 +143,10 @@ int main() {
             needCheck = 0;
             printTableau();
             break;
+        default :
+            // Check if q is valid beforehand
+            printf("error while inputing method");
+            exit(0);
     }
 
     if (needCheck) {

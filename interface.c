@@ -10,6 +10,7 @@ int isDead(int value) {
 }
 
 // Check if string = "0"
+// TODO int isDeadStr(const char* name) {
 int isDeadStr(char* name) {
     return (strcmp(name, "0")) == KILL;
 }
@@ -76,6 +77,9 @@ int getQuantif(int num, int len[4], int * ver, char ** fileA, char ** fileE, cha
                     case 4 :
                         filterO = !filterO;
                         break;
+                    default :
+                        printf("error while choosing filter");
+                        exit(0);
                 }
             } while (choice != -1);
             index = 1;
@@ -229,7 +233,7 @@ void printFigures(int figNum, char ** fileA, char ** fileE, char ** fileI, char 
         printf("\n");
     }
 }
-
+// TODO : void replacePlaceholder(const char *phrase, const char *name, const char *result, char* placeholder) {
 void replacePlaceholder(char *phrase, char *name, char *result, char* placeholder) {
     char *pos = strstr(phrase, placeholder); // on trouve la position du placeholder
     int phlen = strlen(placeholder); // on determine sa longueur
@@ -302,6 +306,9 @@ void askRules(int rules[]) {
                 break;
             case 9 :
                 rules[8] = !rules[8];
+                break;
+            default :
+                printf("error while checking the rules");
                 break;
         }
     }
