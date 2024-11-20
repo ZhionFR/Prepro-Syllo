@@ -119,11 +119,11 @@ void printTableau() {
         }
     }
 }
-/*
-void printTableauDetaille() {
+
+void printTableauDetailled() {
     printf(""
-           "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn :: Rpp :: Rp :: Ruu :: Raa ::\n"
-           "::------::----::----::----::-----::-----::-----::----::-----::----::-----::-----::\n");
+           "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn  :: Rpp :: Rp  :: Ruu :: Raa ::\n"
+           "::------::----::----::----::-----::-----::-----::-----::-----::-----::-----::-----::\n");
     for(int fig = 1; fig < 5; fig++) {
         for (int q1 = 1; q1 < 5; q1++) {
             for (int q2 = 1; q2 < 5; q2++) {
@@ -134,7 +134,6 @@ void printTableauDetaille() {
         }
     }
 }
-*/
 
 // In order : Rmt, Rlh, Rnn, Rn, Rpp, Rp, Ruu, Raa, Inint
 
@@ -153,8 +152,6 @@ void printLign(int fig, int q1, int q2, int q3) {
     }
 }
 
-/*
-
 const int ruleRmt[9] = {1, 0, 0, 0, 0, 0, 0, 0, 0};
 const int ruleRlh[9] = {0, 1, 0, 0, 0, 0, 0, 0, 0};
 const int ruleRnn[9] = {0, 0, 1, 0, 0, 0, 0, 0, 0};
@@ -168,16 +165,15 @@ const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
 void printLignDetailled(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
            fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
-           BOOL[verify(fig, q1, q2, q3, ruleRmt)],
-           BOOL[verify(fig, q1, q2, q3, ruleRlh)],
-           BOOL[verify(fig, q1, q2, q3, ruleRnn)],
-           BOOL[verify(fig, q1, q2, q3, ruleRn)],
-           BOOL[verify(fig, q1, q2, q3, ruleRpp)],
-           BOOL[verify(fig, q1, q2, q3, ruleRp)],
-           BOOL[verify(fig, q1, q2, q3, ruleRuu)],
-           BOOL[verify(fig, q1, q2, q3, ruleRaa)]);
+           BOOLD[verify(fig, q1, q2, q3, ruleRmt)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRlh)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRnn)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRn)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRpp)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRp)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRuu)],
+           BOOLD[verify(fig, q1, q2, q3, ruleRaa)]);
 }
-*/
 
 void exchange(char **wrd1, char **wrd2) {
     char *temp = *wrd1;

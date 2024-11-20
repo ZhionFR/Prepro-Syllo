@@ -142,6 +142,13 @@ int main() {
             needCheck = 0;
             printTableau();
             break;
+
+        // The advanced Table
+        case 4 :
+            needCheck = 0;
+            printTableauDetailled();
+            break;
+
         case 5 :
             // test case
             printf("\e[1;34mThis is a blue text.\e[0m");
