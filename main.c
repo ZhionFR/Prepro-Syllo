@@ -275,14 +275,14 @@ save:
     index = printQuantList(fileO, index, len[3]);
     */
 
-    /*
+
     printf("Saving\n");
     save(len[0], fileA, "Chaines_A");
     save(len[1], fileE, "Chaines_E");
     save(len[2], fileI, "Chaines_I");
     save(len[3], fileO, "Chaines_O");
     printf("Saved\n");
-     */
+
 
     return 0;
 
