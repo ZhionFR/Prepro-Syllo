@@ -126,7 +126,7 @@ void printTable() {
     }
 }
 
-void printTableDetailled() {
+void printDetailedTable() {
     printf(""
            "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn  :: Rpp :: Rp  :: Ruu :: Raa ::\n"
            "::------::----::----::----::-----::-----::-----::-----::-----::-----::-----::-----::\n");
@@ -134,7 +134,7 @@ void printTableDetailled() {
         for (int q1 = 1; q1 < 5; q1++) {
             for (int q2 = 1; q2 < 5; q2++) {
                 for (int q3 = 1; q3 < 5; q3++) {
-                    printLignDetailled(fig, q1, q2, q3);
+                    printDetailedLign(fig, q1, q2, q3);
                 }
             }
         }
@@ -165,7 +165,7 @@ const int ruleRp[9] = {0, 0, 0, 0, 0, 1, 0, 0, 0};
 const int ruleRuu[9] = {0, 0, 0, 0, 0, 0, 1, 0, 0};
 const int ruleRaa[9] = {0, 0, 0, 0, 0, 0, 0, 1, 0};
 
-void printLignDetailled(int fig, int q1, int q2, int q3) {
+void printDetailedLign(int fig, int q1, int q2, int q3) {
     printf("::   %i  ::  %c ::  %c ::  %c :: %s :: %s :: %s :: %s :: %s :: %s :: %s :: %s ::\n",
             fig, QUANTIFS[q1], QUANTIFS[q2], QUANTIFS[q3],
             BOOLD[verify(fig, q1, q2, q3, ruleRmt)],

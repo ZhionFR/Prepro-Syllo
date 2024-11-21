@@ -64,17 +64,17 @@ int main() {
             // Receive the three quantifiers.
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
             if (q1 == -2) {
-                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                 goto save;
             }
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             if (q2 == -2) {
-                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                 goto save;
             }
             q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
             if (q3 == -2) {
-                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                 goto save;
             }
 
@@ -112,7 +112,7 @@ int main() {
 
             q1 = getQuantif(1, len, &v1, fileA, fileE, fileI, fileO);
             if (q1 == -2) {
-                add_quantif( lentPtr, fileA, fileE, fileI, fileO);
+                addQuantif( lentPtr, fileA, fileE, fileI, fileO);
                 goto save;
             }
             getName(S1, propS1);
@@ -123,7 +123,7 @@ int main() {
             
             q2 = getQuantif(2, len, &v2, fileA, fileE, fileI, fileO);
             if (q2 == 2) {
-                add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                 goto save;
             }
             printf("Est-ce le sujet de la deuxieme premice est :\n"
@@ -134,7 +134,7 @@ int main() {
             if (!strcmp(propS, "1")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 if (q3 == -2) {
-                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                     goto save;
                 }
                 propM = propS1;
@@ -144,7 +144,7 @@ int main() {
             } else if (!strcmp(propS, "2")) {
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 if (q3 == -2) {
-                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                     goto save;
                 }
                 propM = propP1;
@@ -173,7 +173,7 @@ int main() {
                 }
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 if (q3 == -2) {
-                    add_quantif(lentPtr, fileA, fileE, fileI, fileO);
+                    addQuantif(lentPtr, fileA, fileE, fileI, fileO);
                     goto save;
                 }
             }
@@ -191,7 +191,7 @@ int main() {
         // The advanced Table
         case 4 :
             needCheck = 0;
-            printTableDetailled();
+            printDetailedTable();
             break;
 
         case 5 :
@@ -244,7 +244,7 @@ int main() {
                 printf(""
                        "::NumFig:: Q1 :: Q2 :: Q3 :: Rmt :: Rlh :: Rnn :: Rn  :: Rpp :: Rp  :: Ruu :: Raa ::\n"
                        "::------::----::----::----::-----::-----::-----::-----::-----::-----::-----::-----::\n");
-                printLignDetailled(fig, q1, q2, q3);
+                printDetailedLign(fig, q1, q2, q3);
                 printf("Pour l'explication des regles non respectees, taper -1.\n");
             }
             printf("Continuer ? (0 pour oui, 1 pour finir, 2 pour le manuel des regles)\n");
