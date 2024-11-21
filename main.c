@@ -261,7 +261,7 @@ int main() {
     // save files in case of modification
 
 save:
-    
+
     /*
     printf("Quantificateurs sauvegardes : \n");
     int index = 1;
