@@ -20,7 +20,7 @@ int isDeadStr(const char* name) {
     return (strcmp(name, "0")) == KILL;
 }
 
-void clear_input_buffer() {
+void clearInputBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF) {
         // Discard all characters in the input buffer
@@ -135,7 +135,7 @@ int getQuantif(int num, int len[], int * ver, char ** fileA, char ** fileE, char
 
 
 // Add a quantifier in the txt file.
-int add_quantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO){
+int addQuantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO){
 
     // Ask for the new quantif
     char str1[100]; // Static buffer size, adjust as needed.
@@ -151,7 +151,7 @@ int add_quantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char **
     printf("Merci de saisir votre quantificateur.\n"
            "N'oubliez pas d'indiquer la position des {S} et {P} afin de pouvoir les utiliser plus tard.\n"
            "Si jamais vous souhaitez supprimer un quantificateur, merci de le faire dans le fichier.txt correspondant.\n");
-    clear_input_buffer();
+    clearInputBuffer();
     fgets(str1, sizeof(str1), stdin);
 
     switch (type) {

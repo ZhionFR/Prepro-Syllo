@@ -93,7 +93,7 @@ void restore(int *p_table_len, char ***p_string_table, char *file_name_to_restor
     close(fd);
 }
 
-void restore_and_add(int *p_table_len, char ***p_string_table, char *file_name_to_restore, char *string_to_add) {
+void restoreAndAdd(int *p_table_len, char ***p_string_table, char *file_name_to_restore, char *string_to_add) {
     // Open the file for reading
     int fd = open(file_name_to_restore, O_RDONLY);
     if (fd == -1) {
