@@ -18,7 +18,7 @@ void clear_input_buffer();
 
 int getQuantif(int num, int len[], int * ver, char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
-int add_quantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
+int addQuantif(int *len[], char ** fileA, char ** fileE, char ** fileI, char ** fileO);
 
 int getFilter(int fA, int fE, int fI, int fO);
 int printQuantList(char ** words, int index, int len);

@@ -132,6 +132,7 @@ int main() {
             scanf("%s", propS);
             if (isDeadStr(propS)) exit(0);
             if (!strcmp(propS, "1")) {
+                getName(S, propS);
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 if (q3 == -2) {
                     addQuantif(lentPtr, fileA, fileE, fileI, fileO);
@@ -140,8 +141,8 @@ int main() {
                 propM = propS1;
                 propP = propP1;
                 fig = 3;
-                getName(S, propS);
             } else if (!strcmp(propS, "2")) {
+                getName(S, propS);
                 q3 = getQuantif(3, len, &v3, fileA, fileE, fileI, fileO);
                 if (q3 == -2) {
                     addQuantif(lentPtr, fileA, fileE, fileI, fileO);
@@ -150,7 +151,6 @@ int main() {
                 propM = propP1;
                 propP = propS1;
                 fig = 4;
-                getName(S, propS);
             } else {
                 printf("Quel est le predicat de la deuxieme premice :\n"
                        "1. %s\n2. %s\n", propS1, propP1);
@@ -178,9 +178,6 @@ int main() {
                 }
             }
 
-            printf("votre syllogisme est : \n");
-            printFiguresMethod2(fig, fileA, fileE, fileI, fileO, propS, propP, propM,
-                                propS1, propP1, q1, q2, q3, v1, v2, v3);
             break;
         // The simple table
         case 3:
@@ -275,14 +272,12 @@ save:
     index = printQuantList(fileO, index, len[3]);
     */
 
-
     printf("Saving\n");
     save(len[0], fileA, "Chaines_A");
     save(len[1], fileE, "Chaines_E");
     save(len[2], fileI, "Chaines_I");
     save(len[3], fileO, "Chaines_O");
     printf("Saved\n");
-
 
     return 0;
 
